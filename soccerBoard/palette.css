@@ -1,0 +1,38 @@
+.color-palette-container {
+    margin-bottom: 1rem;
+}
+
+.color-palette-container label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 7px;
+}
+
+.palette-color {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.palette-color:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.palette-color.active {
+    box-shadow: 0 0 0 3px white, 0 0 0 5px var(--accent-color);
+    transform: scale(1.1);
+}

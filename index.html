@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoKuno のサッカー教室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .header-content {
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #8b0000;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            text-shadow: 
+                0 0 3px rgba(200,200,200,0.8),
+                0 0 6px rgba(180,180,180,0.6),
+                1px 1px 2px rgba(220,220,220,0.9),
+                -1px -1px 2px rgba(220,220,220,0.9),
+                1px -1px 2px rgba(220,220,220,0.9),
+                -1px 1px 2px rgba(220,220,220,0.9),
+                0 2px 4px rgba(0,0,0,0.3);
+            -webkit-text-stroke: 1px rgba(190,190,190,0.4);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(139, 0, 0, 0.8);
+            transform: translateY(-2px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            position: relative;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b0000, #a0522d, #8b0000);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .intro-section h2 {
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            color: #495057;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #8b0000, #cd5c5c, #8b0000);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        .project-card h3 {
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .project-card p {
+            color: #495057;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b0000, #a0522d);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(139,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .project-link:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 18px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #a0522d, #8b0000);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            color: #ffffff;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .soccer-icon {
+            width: 28px;
+            height: 28px;
+            fill: #8b0000;
+            filter: drop-shadow(0 0 8px rgba(139,0,0,0.6));
+        }
+
+        .ads-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .ad-item {
+            flex-shrink: 0;
+        }
+
+        .banner-ads {
+            margin-top: 2rem;
+        }
+
+        .banner-ad-placeholder {
+            width: 728px;
+            height: 90px;
+            background: #f5f5f5;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        /* Metallic Effects */
+        .metallic-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metallic-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="metallic-shine">
+        <div class="container">
+            <div class="header-content">
+                <h1>nonoKuno のサッカー教室</h1>
+            </div>
+        </div>
+    </header>
+
+    <nav style="display: none;">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#home">🏠 ホーム</a></li>
+                <li><a href="#about">📖 概要</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section class="intro-section metallic-shine">
+                <h2>🎉 サッカー観戦をもっと楽しく！</h2>
+                <p>
+                    nonoKuno のサッカー教室では、サッカー観戦をより深く楽しむためのツールを提供しています。<br>
+                    戦術の理解から統計データの分析まで、観戦体験を格段に向上させる便利なツールが揃っています。<br>
+                    試合をただ見るだけでなく、戦術的な視点や詳細なデータで新しい発見を楽しみましょう！
+                </p>
+            </section>
+
+            <section class="projects-section">
+                <div class="projects-grid">
+                    <div class="project-card metallic-shine">
+                        <h3>⚽ サッカー戦術ボード</h3>
+                        <p>
+                            インタラクティブな戦術ボードで、フォーメーションや選手の動きを視覚的に分析できます。
+                            ドラッグ&ドロップで選手を移動し、様々な戦術パターンを試しながら試合観戦をより深く楽しめる実践的なツールです。
+                        </p>
+                        <a href="soccerBoard/" class="project-link">戦術ボードを開く</a>
+                    </div>
+
+                    <div class="project-card metallic-shine">
+                        <h3>📊 Jリーグデータセンター</h3>
+                        <p>
+                            Jリーグの試合データを詳細に分析し、まとめたデータセンターです。
+                            過去の試合結果から最新の順位表まで、観戦に役立つ様々なデータを視覚的に確認できます。
+                            <em>（準備中）</em>
+                        </p>
+                        <a href="#" class="project-link" style="background: linear-gradient(45deg, #6c757d, #495057);">近日公開</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- アフィリエイト広告セクション -->
+        <div class="container">
+            <section class="section">
+                <h2>広告</h2>
+                <div class="ads-container">
+                    <div class="ad-item">
+                        <a href="https://px.a8.net/svt/ejp?a8mat=457HK5+7R8BHU+5RAS+60OXD" rel="nofollow">
+                        <img border="0" width="300" height="250" alt="" src="https://www21.a8.net/svt/bgt?aid=250612133469&wid=001&eno=01&mid=s00000026866001011000&mc=1"></a>
+                        <img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=457HK5+7R8BHU+5RAS+60OXD" alt="">
+                    </div>
+                    <div class="ad-item">
+                        <a href="https://px.a8.net/svt/ejp?a8mat=457HK5+7QMVW2+4ABU+6DRLT" rel="nofollow">
+                        <img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=250612133468&wid=001&eno=01&mid=s00000020001001072000&mc=1"></a>
+                        <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=457HK5+7QMVW2+4ABU+6DRLT" alt="">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

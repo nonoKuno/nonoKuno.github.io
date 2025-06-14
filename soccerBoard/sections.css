@@ -1,0 +1,101 @@
+/* sections.css */
+.instructions {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.2s forwards;
+}
+
+.instructions h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+}
+
+.instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.instructions li {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.instructions li:before {
+    content: "⚽";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+#notification { 
+    position: fixed; 
+    top: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: var(--primary-gradient);
+    color: white; 
+    padding: 16px 32px; 
+    border-radius: 50px; 
+    z-index: 1001; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    opacity: 0; 
+    transition: all 0.3s ease; 
+    pointer-events: none;
+    font-weight: 600;
+}
+
+footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+    color: #666;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.footer-content p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.version {
+    color: #888;
+    font-size: 0.8rem !important;
+}
+
+.instructions p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.instructions p:before {
+    content: "⚽";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}

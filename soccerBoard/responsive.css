@@ -1,0 +1,39 @@
+/* responsive.css */
+@media (max-width: 992px) {
+    .main-content { flex-direction: column; }
+    .board-container {
+        max-width: none;
+        width: calc(100% + 2rem);
+        margin-left: -1rem;
+        margin-right: -1rem;
+        order: 1;
+    }
+    .controls { width: 100%; order: 2; box-sizing: border-box; }
+
+    #vertical-field {
+    display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0.5rem; }
+    .board-container {
+        width: calc(100% + 1rem);
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+    h1 { font-size: 2rem; }
+    .controls { padding: 1rem; }
+    .instructions { padding: 1rem 1.5rem; }
+    .instructions h3 { font-size: 1rem; }
+    .instructions li { font-size: 0.85rem; }
+    
+    .home-button-container {
+        padding: 0.75rem;
+    }
+    
+    .home-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
