@@ -55,6 +55,16 @@
             <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">サッカー日本代表に「鈴木」が多くて「佐藤」が少ない理由は？</p>
         </header>
 
+        <section class="my-8 md:my-12">
+            <div class="container mx-auto text-center">
+                <div class="w-full max-w-[728px] h-[90px] bg-gray-300 mx-auto flex items-center justify-center text-gray-500 text-sm md:text-base">
+                    <a href="https://px.a8.net/svt/ejp?a8mat=457HK5+7QMVW2+4ABU+6IP2P" rel="nofollow">
+                    <img border="0" width="728" height="90" alt="" src="https://www21.a8.net/svt/bgt?aid=250612133468&wid=001&eno=01&mid=s00000020001001095000&mc=1"></a>
+                    <img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=457HK5+7QMVW2+4ABU+6IP2P" alt="">
+                </div>
+            </div>
+        </section>
+
         <main>
             <section id="comparison" class="mb-20 md:mb-24">
                 <div class="text-center mb-10">
@@ -106,8 +116,7 @@
                     </div>
                 </div>
 
-                <div id="japan-map" class="w-full max-w-4xl mx-auto grid grid-cols-5 gap-1 text-xs md:text-sm h-[60vh] md:h-[70vh]">
-                </div>
+                <div id="japan-map" class="w-full max-w-5xl mx-auto grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 text-center"> </div>
                 <div id="map-legend" class="mt-4 text-center text-gray-600">
                     <p>色の濃さは、各都道府県内での名字の人口比率<span class="text-sm font-normal">(2018年時点)</span>を示します。</p>
                 </div>
@@ -140,6 +149,29 @@
                 </p>
             </section>
 
+            <section class="my-12 md:my-16">
+                <div class="container mx-auto">
+                    <h2 class="text-center text-2xl font-bold mb-8 text-gray-700">おすすめサービス</h2>
+                    <div class="flex flex-wrap items-center justify-center gap-6">
+                        <div class="w-[300px] h-[250px] bg-gray-300 flex items-center justify-center text-gray-500">
+                            <a href="https://px.a8.net/svt/ejp?a8mat=457HK5+7R8BHU+5RAS+60OXD" rel="nofollow">
+                            <img border="0" width="300" height="250" alt="" src="https://www21.a8.net/svt/bgt?aid=250612133469&wid=001&eno=01&mid=s00000026866001011000&mc=1"></a>
+                            <img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=457HK5+7R8BHU+5RAS+60OXD" alt="">
+                        </div>
+                        <div class="w-[300px] h-[250px] bg-gray-300 flex items-center justify-center text-gray-500">
+                            <a href="https://px.a8.net/svt/ejp?a8mat=457HK5+7QMVW2+4ABU+6DRLT" rel="nofollow">
+                            <img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=250612133468&wid=001&eno=01&mid=s00000020001001072000&mc=1"></a>
+                            <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=457HK5+7QMVW2+4ABU+6DRLT" alt="">
+                        </div>
+                        <div class="w-[300px] h-[250px] bg-gray-300 flex items-center justify-center text-gray-500">
+                            <a href="https://px.a8.net/svt/ejp?a8mat=457J41+AQZRZM+5QOA+5ZEMP" rel="nofollow">
+                            <img border="0" width="300" height="250" alt="" src="https://www24.a8.net/svt/bgt?aid=250614145650&wid=001&eno=01&mid=s00000026785001005000&mc=1"></a>
+                            <img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=457J41+AQZRZM+5QOA+5ZEMP" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section id="broader-view" class="bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-gray-200">
                 <div class="text-center mb-8">
                     <h2 class="text-3xl font-bold mb-2">日本代表は全国から</h2>
@@ -168,6 +200,12 @@
                      <p class="mt-6 text-gray-700 max-w-2xl mx-auto">代表には「田中」や「中村」といった西日本由来の名字を持つ選手も多数選出されており、タレントが全国から集まっていることがわかります。さらに「堂安」「三笘」「俵積田」など珍しい名字の選手が活躍している事実は、最終的には名字や出身地に関係なく、個々の能力が最も重視される「実力主義」が貫かれている証拠です。</p>
                 </div>
             </section>
+
+            <div class="text-center mt-20 mb-8">
+                <a href="index.html" class="inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition-transform transform hover:-translate-y-1">
+                    ⚽ 豆知識一覧に戻る
+                </a>
+            </div>
         </main>
 
     </div>
@@ -175,65 +213,26 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            const japanMapData = {
-                // 北海道
-                hokkaido: { name: '北海道', grid: 'col-start-9 col-span-4 row-start-1 row-span-2' },
-                // 東北
-                aomori:   { name: '青森', grid: 'col-start-10 col-span-2 row-start-3' },
-                iwate:    { name: '岩手', grid: 'col-start-10 col-span-2 row-start-4' },
-                akita:    { name: '秋田', grid: 'col-start-8 col-span-2 row-start-4' },
-                miyagi:   { name: '宮城', grid: 'col-start-10 col-span-2 row-start-5' },
-                yamagata: { name: '山形', grid: 'col-start-8 col-span-2 row-start-5' },
-                fukushima:{ name: '福島', grid: 'col-start-9 col-span-2 row-start-6' },
-                // 関東
-                ibaraki:  { name: '茨城', grid: 'col-start-10 col-span-2 row-start-7' },
-                tochigi:  { name: '栃木', grid: 'col-start-8 col-span-2 row-start-7' },
-                gunma:    { name: '群馬', grid: 'col-start-6 col-span-2 row-start-7' },
-                saitama:  { name: '埼玉', grid: 'col-start-7 col-span-2 row-start-8' },
-                chiba:    { name: '千葉', grid: 'col-start-9 col-span-2 row-start-8' },
-                tokyo:    { name: '東京', grid: 'col-start-7 col-span-2 row-start-9' },
-                kanagawa: { name: '神奈川', grid: 'col-start-7 col-span-2 row-start-10' },
-                // 中部
-                niigata:  { name: '新潟', grid: 'col-start-7 col-span-2 row-start-6' },
-                toyama:   { name: '富山', grid: 'col-start-5 col-span-2 row-start-6' },
-                ishikawa: { name: '石川', grid: 'col-start-4 col-span-2 row-start-5' },
-                fukui:    { name: '福井', grid: 'col-start-4 col-span-2 row-start-6' },
-                nagano:   { name: '長野', grid: 'col-start-5 col-span-2 row-start-8' },
-                yamanashi:{ name: '山梨', grid: 'col-start-5 col-span-2 row-start-9' },
-                gifu:     { name: '岐阜', grid: 'col-start-4 col-span-2 row-start-7' },
-                shizuoka: { name: '静岡', grid: 'col-start-5 col-span-2 row-start-10' },
-                aichi:    { name: '愛知', grid: 'col-start-4 col-span-2 row-start-9' },
-                // 近畿
-                mie:      { name: '三重', grid: 'col-start-3 col-span-2 row-start-8' },
-                shiga:    { name: '滋賀', grid: 'col-start-3 col-span-2 row-start-7' },
-                kyoto:    { name: '京都', grid: 'col-start-3 col-span-2 row-start-6' },
-                osaka:    { name: '大阪', grid: 'col-start-2 col-span-2 row-start-5' },
-                hyogo:    { name: '兵庫', grid: 'col-start-2 col-span-2 row-start-4' },
-                nara:     { name: '奈良', grid: 'col-start-3 col-span-2 row-start-9' },
-                wakayama: { name: '和歌山', grid: 'col-start-2 col-span-2 row-start-10' },
-                // 中国
-                tottori:  { name: '鳥取', grid: 'col-start-1 col-span-2 row-start-4' },
-                shimane:  { name: '島根', grid: 'col-start-1 col-span-2 row-start-3' },
-                okayama:  { name: '岡山', grid: 'col-start-1 col-span-2 row-start-5' },
-                hiroshima:{ name: '広島', grid: 'col-start-1 col-span-2 row-start-6' },
-                yamaguchi:{ name: '山口', grid: 'col-start-1 col-span-2 row-start-7' },
-                // 四国
-                kagawa:   { name: '香川', grid: 'col-start-1 col-span-2 row-start-8' },
-                tokushima:{ name: '徳島', grid: 'col-start-2 col-span-2 row-start-8' },
-                ehime:    { name: '愛媛', grid: 'col-start-1 col-span-2 row-start-9' },
-                kochi:    { name: '高知', grid: 'col-start-1 col-span-2 row-start-10' },
-                // 九州・沖縄
-                fukuoka:  { name: '福岡', grid: 'col-start-1 col-span-2 row-start-2' },
-                saga:     { name: '佐賀', grid: 'col-start-1 col-span-1 row-start-1' },
-                nagasaki: { name: '長崎', grid: 'col-start-2 col-span-1 row-start-1' },
-                oita:     { name: '大分', grid: 'col-start-3 col-span-2 row-start-2' },
-                kumamoto: { name: '熊本', grid: 'col-start-3 col-span-2 row-start-3' },
-                miyazaki: { name: '宮崎', grid: 'col-start-3 col-span-2 row-start-4' },
-                kagoshima:{ name: '鹿児島', grid: 'col-start-3 col-span-2 row-start-5' },
-                okinawa:  { name: '沖縄', grid: 'col-start-4 col-span-2 row-start-1' },
-            };
+            // 都道府県データを北から順の配列に変更
+            const prefectureData = [
+                {id: 'hokkaido', name: '北海道'}, {id: 'aomori', name: '青森'}, {id: 'iwate', name: '岩手'},
+                {id: 'miyagi', name: '宮城'}, {id: 'akita', name: '秋田'}, {id: 'yamagata', name: '山形'},
+                {id: 'fukushima', name: '福島'}, {id: 'ibaraki', name: '茨城'}, {id: 'tochigi', name: '栃木'},
+                {id: 'gunma', name: '群馬'}, {id: 'saitama', name: '埼玉'}, {id: 'chiba', name: '千葉'},
+                {id: 'tokyo', name: '東京'}, {id: 'kanagawa', name: '神奈川'}, {id: 'niigata', name: '新潟'},
+                {id: 'toyama', name: '富山'}, {id: 'ishikawa', name: '石川'}, {id: 'fukui', name: '福井'},
+                {id: 'yamanashi', name: '山梨'}, {id: 'nagano', name: '長野'}, {id: 'gifu', name: '岐阜'},
+                {id: 'shizuoka', name: '静岡'}, {id: 'aichi', name: '愛知'}, {id: 'mie', name: '三重'},
+                {id: 'shiga', name: '滋賀'}, {id: 'kyoto', name: '京都'}, {id: 'osaka', name: '大阪'},
+                {id: 'hyogo', name: '兵庫'}, {id: 'nara', name: '奈良'}, {id: 'wakayama', name: '和歌山'},
+                {id: 'tottori', name: '鳥取'}, {id: 'shimane', name: '島根'}, {id: 'okayama', name: '岡山'},
+                {id: 'hiroshima', name: '広島'}, {id: 'yamaguchi', name: '山口'}, {id: 'tokushima', name: '徳島'},
+                {id: 'kagawa', name: '香川'}, {id: 'ehime', name: '愛媛'}, {id: 'kochi', name: '高知'},
+                {id: 'fukuoka', name: '福岡'}, {id: 'saga', name: '佐賀'}, {id: 'nagasaki', name: '長崎'},
+                {id: 'kumamoto', name: '熊本'}, {id: 'oita', name: '大分'}, {id: 'miyazaki', name: '宮崎'},
+                {id: 'kagoshima', name: '鹿児島'}, {id: 'okinawa', name: '沖縄'}
+            ];
 
-            
             const surnameData = {
                 // 明治安田生命 全国同姓調査 (2018年時点) に基づく名字の地域集中度
                 suzuki: { shizuoka: 5, aichi: 4, kanagawa: 4, ibaraki: 4, chiba: 4, tochigi: 4, saitama: 3, tokyo: 3, fukushima: 2, yamagata: 2 },
@@ -244,11 +243,13 @@
             const soccerStrength = ['tokyo', 'kanagawa', 'saitama', 'aichi', 'chiba', 'hyogo', 'osaka', 'shizuoka', 'hokkaido', 'fukuoka'];
             
             const mapContainer = document.getElementById('japan-map');
-            Object.keys(japanMapData).forEach(key => {
+
+            // シンプルなリストとして都道府県を生成
+            prefectureData.forEach(pref => {
                 const regionDiv = document.createElement('div');
-                regionDiv.id = key;
-                regionDiv.className = `region bg-gray-200 flex items-center justify-center p-1 text-white font-bold rounded-sm ${japanMapData[key].grid}`;
-                regionDiv.textContent = japanMapData[key].name;
+                regionDiv.id = pref.id;
+                regionDiv.className = `region p-2 rounded-md transition-colors duration-300`;
+                regionDiv.textContent = pref.name;
                 mapContainer.appendChild(regionDiv);
             });
 
@@ -258,14 +259,19 @@
                     sato: { 5: 'bg-red-800', 4: 'bg-red-600', 3: 'bg-red-400', 2: 'bg-red-200' }
                 };
                 
-                Object.keys(japanMapData).forEach(key => {
-                    const regionDiv = document.getElementById(key);
-                    const level = surnameData[surname][key] || 0;
-                    regionDiv.className = `region flex items-center justify-center p-1 text-white font-bold rounded-sm ${japanMapData[key].grid} ${level > 0 ? colorScales[surname][level] : 'bg-gray-200'}`;
-                    if (level === 0) {
-                      regionDiv.style.color = '#6b7280';
+                prefectureData.forEach(pref => {
+                    const regionDiv = document.getElementById(pref.id);
+                    const level = surnameData[surname]?.[pref.id] || 0;
+                    
+                    // 既存の色クラスを削除
+                    Object.values(colorScales.suzuki).forEach(c => regionDiv.classList.remove(c));
+                    Object.values(colorScales.sato).forEach(c => regionDiv.classList.remove(c));
+                    regionDiv.classList.remove('bg-gray-200', 'text-white', 'text-gray-700', 'font-bold');
+
+                    if (level > 0) {
+                      regionDiv.classList.add(colorScales[surname][level], 'text-white', 'font-bold');
                     } else {
-                      regionDiv.style.color = 'white';
+                      regionDiv.classList.add('bg-gray-200', 'text-gray-700');
                     }
                 });
             }
@@ -276,10 +282,12 @@
             document.getElementById('soccer-toggle').addEventListener('change', (e) => {
                 soccerStrength.forEach(key => {
                     const regionDiv = document.getElementById(key);
-                    if (e.target.checked) {
-                        regionDiv.classList.add('soccer-strength-overlay');
-                    } else {
-                        regionDiv.classList.remove('soccer-strength-overlay');
+                    if (regionDiv) {
+                        if (e.target.checked) {
+                            regionDiv.classList.add('soccer-strength-overlay');
+                        } else {
+                            regionDiv.classList.remove('soccer-strength-overlay');
+                        }
                     }
                 });
             });
