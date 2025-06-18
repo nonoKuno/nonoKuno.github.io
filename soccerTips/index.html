@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本サッカー豆知識 - nonoKuno のサッカー教室</title>
+    <style>
+        /* index.htmlからデザインを継承 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .header-content {
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #8b0000;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            text-shadow: 
+                0 0 3px rgba(200,200,200,0.8),
+                0 0 6px rgba(180,180,180,0.6),
+                1px 1px 2px rgba(220,220,220,0.9),
+                -1px -1px 2px rgba(220,220,220,0.9),
+                1px -1px 2px rgba(220,220,220,0.9),
+                -1px 1px 2px rgba(220,220,220,0.9),
+                0 2px 4px rgba(0,0,0,0.3);
+            -webkit-text-stroke: 1px rgba(190,190,190,0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        /* メインページと同様のグリッドとカードのスタイル */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-content: center; /* カードが1つの場合に中央寄せにする */
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #8b0000, #cd5c5c, #8b0000);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        .project-card h3 {
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .project-card p {
+            color: #495057;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b0000, #a0522d);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(139,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .project-link:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 18px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #a0522d, #8b0000);
+        }
+
+        /* 戻るボタンのスタイル */
+        .back-link-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b0000, #a0522d);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(139,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .back-link:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 18px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #a0522d, #8b0000);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            color: #ffffff;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .soccer-icon {
+            width: 28px;
+            height: 28px;
+            fill: #8b0000;
+            filter: drop-shadow(0 0 8px rgba(139,0,0,0.6));
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>💡 日本サッカー豆知識</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <section class="projects-section">
+                <div class="projects-grid">
+                    
+                    <!-- 豆知識カード 1 -->
+                    <div class="project-card">
+                        <h3>⚽ Jリーグの最初のゴール</h3>
+                        <p>
+                            Jリーグの記念すべき最初のゴールは誰が決めたか知っていますか？歴史的な瞬間を振り返りましょう。
+                        </p>
+                        <a href="jleague-first-goal.html" class="project-link">詳細を見る</a>
+                    </div>
+
+                    <!-- 今後、豆知識が増えたらここに追加します -->
+
+                </div>
+            </section>
+            
+            <!-- ホームに戻るボタン -->
+            <div class="back-link-container">
+                <a href="index.html" class="back-link">⚽ ホームに戻る</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

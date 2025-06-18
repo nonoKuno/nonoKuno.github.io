@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サッカー日本代表に鈴木が多い理由</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page, scrolling narrative design. It starts with the core hypothesis (Suzuki vs. Sato), then allows users to interactively explore each case study through a simulated map where they can toggle surname distribution and soccer strength data. This visual exploration is followed by a broader view using an interactive bar chart to compare multiple surnames. The flow is designed to guide the user through the report's findings in a logical, discovery-oriented journey, from specific hypotheses to general conclusions, rather than mirroring the report's chapter structure. This enhances usability by making complex correlations easy to grasp visually. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Comparing player surname ranks vs. national ranks. Goal: Compare. Viz: Interactive Bar Chart. Interaction: Hover to see detailed stats. Justification: Clearly visualizes the over/under-representation of surnames. Library: Chart.js (Canvas).
+        2. Report Info: Correlating surname geographic distribution with regional soccer strength. Goal: Relationships. Viz: Simulated Japan Map (HTML/Tailwind divs). Interaction: Buttons to switch between surnames ('Suzuki'/'Sato') and a toggle to overlay soccer strength data. Justification: Provides a powerful, direct visual test of the core hypothesis, which is more impactful than tables. Method: HTML/CSS/JS.
+        3. Report Info: Key statistics (e.g., player counts, national ranks). Goal: Inform. Viz: 'Stat Cards' with large typography. Interaction: None. Justification: Draws attention to the foundational numbers of the analysis. Method: HTML/Tailwind.
+        4. Report Info: East vs. West Japan surname divide. Goal: Organize. Viz: Two-column layout diagram. Interaction: None. Justification: Simple and effective way to show the geographic grouping of surnames. Method: HTML/Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #F8F5F2;
+            color: #383838;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            max-height: 500px;
+        }
+        @media (max-width: 768px) {
+            chart-container {
+                height: 50vh;
+            }
+        }
+        .region {
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .soccer-strength-overlay::after {
+            content: '⚽';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            opacity: 0.3;
+            color: #1a202c;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[#2c3e50]">サッカー日本代表に鈴木が多い理由</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">なぜ「鈴木」は多く、なぜ「佐藤」は少ないのか？名字の分布と地域のサッカー熱の間に、隠された相関関係はあるのでしょうか。データを元に、その関連性をインタラクティブに探ります。</p>
+        </header>
+
+        <main>
+            <section id="comparison" class="mb-20 md:mb-24">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-2">名字ランキングの逆転現象</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">まず、驚くべき事実から見ていきましょう。全国で最も多い名字は「佐藤」ですが、日本代表では「鈴木」が最多。この「ねじれ」が、私たちの探求の出発点です。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white/60 p-6 rounded-2xl shadow-lg border border-gray-200">
+                        <h3 class="font-bold text-2xl text-center mb-4">日本代表 名字トップ5 <span class="text-base font-normal">(直近の調査より)</span></h3>
+                        <ol class="text-lg space-y-2">
+                            <li class="flex justify-between items-center p-2 rounded-lg bg-blue-50"><span><span class="font-bold text-blue-600">1位</span> 鈴木</span> <span class="font-bold">21人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">2位</span> 田中</span> <span class="font-bold">20人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">3位</span> 中村</span> <span class="font-bold">16人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg bg-red-50"><span><span class="font-bold text-red-600">4位</span> 佐藤</span> <span class="font-bold">15人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">4位</span> 山田</span> <span class="font-bold">15人</span></li>
+                        </ol>
+                    </div>
+                    <div class="bg-white/60 p-6 rounded-2xl shadow-lg border border-gray-200">
+                        <h3 class="font-bold text-2xl text-center mb-4">全国 名字トップ5 <span class="text-base font-normal">(2018年時点)</span></h3>
+                        <ol class="text-lg space-y-2">
+                            <li class="flex justify-between items-center p-2 rounded-lg bg-red-50"><span><span class="font-bold text-red-600">1位</span> 佐藤</span> <span class="font-bold">約183万人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg bg-blue-50"><span><span class="font-bold text-blue-600">2位</span> 鈴木</span> <span class="font-bold">約179万人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">3位</span> 高橋</span> <span class="font-bold">約138万人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">4位</span> 田中</span> <span class="font-bold">約131万人</span></li>
+                            <li class="flex justify-between items-center p-2 rounded-lg"><span><span class="font-bold text-gray-500">5位</span> 伊藤</span> <span class="font-bold">約105万人</span></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="map-analysis" class="bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-gray-200 mb-20 md:mb-24">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2">名字の分布 vs サッカー熱</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">「鈴木」と「佐藤」のボタンで名字の分布を、「サッカー強豪地域」のトグルでJFA登録選手数が多い地域<span class="text-sm font-normal">(直近のデータより)</span>を地図上で重ね合わせ、相関関係を視覚的に確かめてみましょう。</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
+                    <div class="flex gap-2">
+                        <button id="suzuki-btn" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-full shadow-md hover:bg-blue-600 transition">鈴木の分布</button>
+                        <button id="sato-btn" class="px-6 py-2 bg-red-500 text-white font-bold rounded-full shadow-md hover:bg-red-600 transition">佐藤の分布</button>
+                    </div>
+                    <div class="flex items-center">
+                        <label for="soccer-toggle" class="mr-3 font-semibold text-gray-700">サッカー強豪地域</label>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="soccer-toggle" class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                            <label for="soccer-toggle" class="toggle-label block overflow-hidden h-7 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="japan-map" class="w-full max-w-4xl mx-auto grid grid-cols-5 gap-1 text-xs md:text-sm h-[60vh] md:h-[70vh]">
+                </div>
+                <div id="map-legend" class="mt-4 text-center text-gray-600">
+                    <p>色の濃さは、各都道府県内での名字の人口比率<span class="text-sm font-normal">(2018年時点のデータより)</span>を示します。</p>
+                </div>
+            </section>
+
+            <section id="drill-down" class="mb-20 md:mb-24">
+                 <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-2">名字と地域性から読み解く傾向</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">地図で見た発見を、具体的なテキストで解説します。「鈴木」と「佐藤」それぞれのケースについて、分析結果をまとめました。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-50/50 p-6 rounded-2xl border-2 border-blue-200">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-3">【傾向①】鈴木：サッカーが盛んな地域に多い名字</h3>
+                        <p class="text-gray-700 leading-relaxed">「鈴木」姓は関東・東海地方に集中しています<span class="text-sm font-normal">(2018年調査)</span>。これらの地域は、JFA登録選手数が全国トップクラスであり<span class="text-sm font-normal">(直近のデータより)</span>、高校サッカーの強豪校も多く<span class="text-sm font-normal">(過去の大会結果より)</span>、まさに日本の「サッカーどころ」。名字が集中する地域とサッカーの盛んな地域がこれほど明確に一致するため、代表に「鈴木」姓が多いのは、この強い相関関係を反映していると考えられます。</p>
+                    </div>
+                    <div class="bg-red-50/50 p-6 rounded-2xl border-2 border-red-200">
+                        <h3 class="text-2xl font-bold text-red-800 mb-3">【傾向②】佐藤：サッカーが盛んではない地域に多い名字</h3>
+                        <p class="text-gray-700 leading-relaxed">「佐藤」姓は北海道・東北地方に集中しています<span class="text-sm font-normal">(2018年調査)</span>。これらの地域は、全体的に見ると関東・東海ほどのサッカー競技人口を有していません<span class="text-sm font-normal">(直近のデータより)</span>。これが、全国一の名字でありながら代表選手が相対的に少ない理由と推測されます。ただし、北海道のように競技人口が多い地域や<span class="text-sm font-normal">(直近のデータより)</span>、青森山田高校のような特定の強力な育成機関も存在するため<span class="text-sm font-normal">(過去の大会結果より)</span>、関係性は単純ではありません。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="suzuki-answer" class="bg-green-100 p-6 md:p-10 rounded-3xl shadow-xl border border-green-300 mb-20 md:mb-24 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4">ズバリ回答！ 鈴木選手が多い理由</h2>
+                <p class="text-lg md:text-xl text-green-700 max-w-3xl mx-auto">
+                    サッカー日本代表に「鈴木」選手が多いのは、
+                    <span class="font-bold text-green-900">「鈴木」という名字が、日本のサッカーが最も盛んな「関東・東海地方」に集中して多く分布しているためです。</span>
+                    これらの地域は、JFA登録選手数も多く、高校サッカーの強豪校もひしめき合う、まさにサッカーの「聖地」と言える場所です。
+                    名字の分布とサッカーの地域的な強さが強く結びついていることが、この現象の大きな要因だと考えられます。
+                </p>
+            </section>
+
+            <section id="broader-view" class="bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-gray-200">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2">日本代表は全国から</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">「鈴木」と「佐藤」の謎は解けましたが、サッカーの才能は日本全国に広がっています。他の名字の傾向や、珍しい名字の選手の存在が、その事実を物語っています。</p>
+                </div>
+                
+                <div class="mb-12">
+                     <h3 class="text-xl font-bold text-center mb-4">日本代表選手 <span class="text-base font-normal">(直近の調査より)</span> vs 全国の名字ランキング <span class="text-base font-normal">(2018年時点)</span></h3>
+                     <div class="chart-container">
+                        <canvas id="surnameChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                     <h3 class="text-xl font-bold mb-4">名字の東西分布と実力主義</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">東日本に多い名字</h4>
+                            <p>鈴木、佐藤、高橋 など <span class="text-sm font-normal">(2018年調査)</span></p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">西日本に多い名字</h4>
+                            <p>田中、山本、中村 など <span class="text-sm font-normal">(2018年調査)</span></p>
+                        </div>
+                     </div>
+                     <p class="mt-6 text-gray-700 max-w-2xl mx-auto">代表には「田中」や「中村」といった西日本由来の名字を持つ選手も多数選出されており、タレントが全国から集まっていることがわかります。さらに「堂安」「三笘」「伊野波」など珍しい名字の選手が活躍している事実は、最終的には名字や出身地に関係なく、個々の能力が最も重視される「実力主義」が貫かれている証拠です。</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 text-gray-500">
+            <p>このアプリケーションは、提供された分析レポートのデータを基に作成されました。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const japanMapData = {
+                hokkaido: { name: '北海道', grid: 'col-start-4 col-span-2 row-start-1 row-span-2' },
+                aomori: { name: '青森', grid: 'col-start-4 row-start-3' },
+                iwate: { name: '岩手', grid: 'col-start-4 row-start-4' },
+                miyagi: { name: '宮城', grid: 'col-start-4 row-start-5' },
+                akita: { name: '秋田', grid: 'col-start-3 row-start-4' },
+                yamagata: { name: '山形', grid: 'col-start-3 row-start-5' },
+                fukushima: { name: '福島', grid: 'col-start-4 row-start-6' },
+                ibaraki: { name: '茨城', grid: 'col-start-4 row-start-7' },
+                tochigi: { name: '栃木', grid: 'col-start-3 row-start-6' },
+                gunma: { name: '群馬', grid: 'col-start-3 row-start-7' },
+                saitama: { name: '埼玉', grid: 'col-start-3 row-start-8' },
+                chiba: { name: '千葉', grid: 'col-start-4 row-start-8' },
+                tokyo: { name: '東京', grid: 'col-start-3 row-start-9' },
+                kanagawa: { name: '神奈川', grid: 'col-start-3 row-start-10' },
+                niigata: { name: '新潟', grid: 'col-start-3 row-start-3' },
+                toyama: { name: '富山', grid: 'col-start-2 row-start-5' },
+                ishikawa: { name: '石川', grid: 'col-start-2 row-start-6' },
+                fukui: { name: '福井', grid: 'col-start-2 row-start-7' },
+                yamanashi: { name: '山梨', grid: 'col-start-2 row-start-9' },
+                nagano: { name: '長野', grid: 'col-start-2 row-start-8' },
+                gifu: { name: '岐阜', grid: 'col-start-2 row-start-4' },
+                shizuoka: { name: '静岡', grid: 'col-start-2 row-start-10' },
+                aichi: { name: '愛知', grid: 'col-start-1 row-start-10' },
+                mie: { name: '三重', grid: 'col-start-1 row-start-9' },
+                shiga: { name: '滋賀', grid: 'col-start-1 row-start-8' },
+                kyoto: { name: '京都', grid: 'col-start-1 row-start-7' },
+                osaka: { name: '大阪', grid: 'col-start-1 row-start-6' },
+                hyogo: { name: '兵庫', grid: 'col-start-1 row-start-5' },
+                nara: { name: '奈良', grid: 'col-start-2 row-start-3' }, // Placeholder position
+                wakayama: { name: '和歌山', grid: 'col-start-2 row-start-2' }, // Placeholder position
+                tottori: { name: '鳥取', grid: 'col-start-1 row-start-4' },
+                shimane: { name: '島根', grid: 'col-start-1 row-start-3' },
+                okayama: { name: '岡山', grid: 'col-start-2 row-start-1' }, // Placeholder position
+                hiroshima: { name: '広島', grid: 'col-start-3 row-start-1' }, // Placeholder position
+                yamaguchi: { name: '山口', grid: 'col-start-4 row-start-1' }, // Placeholder position
+                tokushima: { name: '徳島', grid: 'col-start-1 row-start-2' }, // Placeholder position
+                kagawa: { name: '香川', grid: 'col-start-5 row-start-3' }, // Placeholder position
+                ehime: { name: '愛媛', grid: 'col-start-5 row-start-4' }, // Placeholder position
+                kochi: { name: '高知', grid: 'col-start-5 row-start-5' }, // Placeholder position
+                fukuoka: { name: '福岡', grid: 'col-start-5 row-start-6' },
+                saga: { name: '佐賀', grid: 'col-start-5 row-start-7' },
+                nagasaki: { name: '長崎', grid: 'col-start-5 row-start-8' },
+                kumamoto: { name: '熊本', grid: 'col-start-5 row-start-9' },
+                oita: { name: '大分', grid: 'col-start-5 row-start-10' },
+                miyazaki: { name: '宮崎', grid: 'col-start-5 row-start-11' },
+                kagoshima: { name: '鹿児島', grid: 'col-start-4 row-start-11' },
+                okinawa: { name: '沖縄', grid: 'col-start-3 row-start-11' },
+            };
+            
+            const surnameData = {
+                // 明治安田生命 全国同姓調査 (2018年時点) に基づく名字の地域集中度
+                suzuki: { shizuoka: 5, aichi: 4, kanagawa: 4, ibaraki: 4, chiba: 4, tochigi: 4, saitama: 3, tokyo: 3, fukushima: 2, yamagata: 2 },
+                sato: { yamagata: 5, akita: 5, miyagi: 5, fukushima: 5, iwate: 5, oita: 4, niigata: 4, hokkaido: 4, tokushima: 2 }
+            };
+
+            // JFA登録競技人口 (直近のデータより) および高校サッカー選手権出場選手数 (第101回大会) に基づくサッカー強豪地域
+            const soccerStrength = ['tokyo', 'kanagawa', 'saitama', 'aichi', 'chiba', 'hyogo', 'osaka', 'shizuoka', 'hokkaido', 'fukuoka'];
+            
+            const mapContainer = document.getElementById('japan-map');
+            Object.keys(japanMapData).forEach(key => {
+                const regionDiv = document.createElement('div');
+                regionDiv.id = key;
+                regionDiv.className = `region bg-gray-200 flex items-center justify-center p-1 text-white font-bold rounded-sm ${japanMapData[key].grid}`;
+                regionDiv.textContent = japanMapData[key].name;
+                mapContainer.appendChild(regionDiv);
+            });
+
+            function updateMap(surname) {
+                const colorScales = {
+                    suzuki: { 5: 'bg-blue-800', 4: 'bg-blue-600', 3: 'bg-blue-400', 2: 'bg-blue-200' },
+                    sato: { 5: 'bg-red-800', 4: 'bg-red-600', 3: 'bg-red-400', 2: 'bg-red-200' }
+                };
+                
+                Object.keys(japanMapData).forEach(key => {
+                    const regionDiv = document.getElementById(key);
+                    const level = surnameData[surname][key] || 0;
+                    regionDiv.className = `region flex items-center justify-center p-1 text-white font-bold rounded-sm ${japanMapData[key].grid} ${level > 0 ? colorScales[surname][level] : 'bg-gray-200'}`;
+                    if (level === 0) {
+                      regionDiv.style.color = '#6b7280';
+                    } else {
+                      regionDiv.style.color = 'white';
+                    }
+                });
+            }
+
+            document.getElementById('suzuki-btn').addEventListener('click', () => updateMap('suzuki'));
+            document.getElementById('sato-btn').addEventListener('click', () => updateMap('sato'));
+
+            document.getElementById('soccer-toggle').addEventListener('change', (e) => {
+                soccerStrength.forEach(key => {
+                    const regionDiv = document.getElementById(key);
+                    if (e.target.checked) {
+                        regionDiv.classList.add('soccer-strength-overlay');
+                    } else {
+                        regionDiv.classList.remove('soccer-strength-overlay');
+                    }
+                });
+            });
+
+            updateMap('suzuki');
+            document.getElementById('suzuki-btn').focus();
+
+            const chartData = {
+                labels: ['鈴木', '田中', '中村', '佐藤', '山田', '山本', '高橋', '吉田'],
+                playerCounts: [21, 20, 16, 15, 15, 13, 13, 10], // 日本代表選手数 (直近の調査より)
+                nationalRanks: [2, 4, 6, 1, 12, 5, 3, 11] // 全国名字ランキング (2018年時点)
+            };
+
+            const ctx = document.getElementById('surnameChart').getContext('2d');
+            const surnameChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: '日本代表選手数',
+                        data: chartData.playerCounts,
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '選手数 (人)',
+                                font: { size: 14 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const index = context.dataIndex;
+                                    const rank = chartData.nationalRanks[index];
+                                    return `全国順位: ${rank}位 (2018年時点)`;
+                                }
+                            }
+                        },
+                        legend: {
+                           display: false
+                        }
+                    }
+                }
+            });
+
+            const toggleCheckbox = document.querySelector('.toggle-checkbox');
+            const toggleLabel = document.querySelector('.toggle-label');
+            toggleCheckbox.addEventListener('change', () => {
+                if(toggleCheckbox.checked) {
+                    toggleLabel.style.backgroundColor = '#4ade80';
+                } else {
+                    toggleLabel.style.backgroundColor = '#d1d5db';
+                }
+            });
+            toggleLabel.style.backgroundColor = '#d1d5db';
+        });
+    </script>
+    <style>
+      .toggle-checkbox:checked {
+        right: 0;
+        border-color: #4ade80;
+      }
+      .toggle-checkbox:checked + .toggle-label {
+        background-color: #4ade80;
+      }
+    </style>
+</body>
+</html>
