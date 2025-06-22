@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中田英寿は生まれる時代を間違えた？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 60vh;
+            max-height: 450px;
+        }
+        .active-era-tab {
+            background-color: #1e3a8a;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgb(0 0 0 / 10%);
+        }
+        .era-tab {
+            transition: all 0.3s ease-in-out;
+        }
+        .profile-tab {
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #d1d5db;
+        }
+        .active-profile-tab {
+            background-color: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px 0 rgb(0 0 0 / 10%);
+        }
+        .content-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+        
+        <section id="intro" class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">中田英寿は生まれる時代を間違えた？</h1>
+            <p class="text-center text-sm text-gray-600 mt-2 mb-8">日本サッカー黎明期の天才は、現代サッカーでも輝けるのか</p>
+            <p class="max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-gray-700">
+                中田英寿。その名は単なる名選手ではなく、日本サッカーの歴史を体現する一つの時代そのものです。彼には常に「もし、より現代的なチームにいたら？」という魅力的な問いが付きまといます。このアプリケーションは、その問いにデータと戦術分析で挑む試みです。彼が「香川世代」や「三笘世代」に加わっていたら、日本代表はどれほど強くなったのか。さあ、時空を超えた戦術シミュレーションを始めましょう。
+            </p>
+        </section>
+
+        <section id="player-profile" class="mb-16 bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-2">パイオニアの解剖学</h2>
+            <p class="text-center text-gray-600 mb-8">中田英寿を構成する5つの核心的要素。チャートまたは下のタブで詳細を確認できます。</p>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2">
+                    <div class="chart-container">
+                        <canvas id="nakataRadarChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col">
+                    <div id="profile-tabs" class="flex flex-wrap justify-center gap-2 mb-4">
+                        
+                    </div>
+                    <div id="profile-detail" class="p-4 bg-gray-100 rounded-lg flex-grow min-h-[200px] content-fade-in">
+                        <h3 id="detail-title" class="font-bold text-xl mb-2 text-blue-800"></h3>
+                        <p id="detail-text" class="text-gray-700 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="what-if-simulator" class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-2">"IF" シミュレーター</h2>
+            <p class="text-center text-gray-600 mb-8">時代を選択し、中田英寿がチームに与える影響を分析します。</p>
+            
+            <div class="flex justify-center gap-2 md:gap-4 mb-8 p-2 bg-gray-200 rounded-full max-w-md mx-auto">
+                <button id="tab-zac" class="era-tab flex-1 py-2 px-4 rounded-full font-bold text-sm md:text-base focus:outline-none active-era-tab" onclick="selectEra('zaccheroni')">ザックジャパン (2014)</button>
+                <button id="tab-moriyasu" class="era-tab flex-1 py-2 px-4 rounded-full font-bold text-sm md:text-base focus:outline-none" onclick="selectEra('moriyasu')">森保ジャパン (2026)</button>
+            </div>
+
+            <div id="simulation-content" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg content-fade-in">
+            </div>
+        </section>
+
+        <section id="modern-verdict" class="mb-16 bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-2">現代サッカーへの挑戦状</h2>
+            <p class="text-center text-gray-600 mb-8">データが示す現代サッカーの超高強度な環境。中田の能力は、この時代で通用するのでしょうか？</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-3xl font-bold text-blue-800">110km+</p>
+                    <p class="font-semibold text-gray-700 mt-1">チーム総走行距離 (1試合)</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-3xl font-bold text-blue-800">数百回</p>
+                    <p class="font-semibold text-gray-700 mt-1">トップ選手のスプリント回数</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-3xl font-bold text-blue-800">4局面</p>
+                    <p class="font-semibold text-gray-700 mt-1">攻・守・切り替えでの貢献</p>
+                </div>
+            </div>
+            <div class="prose max-w-none prose-indigo">
+                <h3 class="font-bold text-xl text-blue-800">分析：2024年に成功できるか？</h3>
+                <p>結論から言えば、中田英寿の最も特徴的な能力、すなわちワールドクラスのプレス耐性、フットボールインテリジェンス、そして機能的筋力は、現代サッカーにおいて単に関連性があるだけでなく、<b>最高級のスキル</b>として評価されます。彼の存在自体が、相手のハイプレスを無力化する戦術となり得ます。グアルディオラやクロップのような現代の名将が要求する複雑な戦術も完璧に実行できるでしょう。彼のスキルセットは、現代が求める「8番」（セントラルMF）の理想像そのものであり、トップレベルで輝くことは疑いようもありません。</p>
+            </div>
+        </section>
+
+        <section id="conclusion" class="text-center bg-gradient-to-r from-blue-800 to-indigo-900 text-white p-8 md:p-12 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">中田英寿は「生まれる時代を間違えた」のか</h2>
+            <p class="max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-blue-100">
+                本分析の結論は、「重要なニュアンスを伴うが、本質的に真実である」となります。特に、才能がありながらも脆さを抱えていた2014年の「香川世代」にとって、彼がもたらす物理的な安定性は、チームを全く異なる形で機能させるための「重要な戦術的選択肢」でした。その意味で、日本サッカーは歴史の重要な局面で、問題を解決するユニークな才能をチームに加えられなかったと言えるかもしれません。彼の存在は、日本のサッカー史に、異なる輝かしい１ページを加えていた可能性があります。
+            </p>
+        </section>
+
+    <div class="text-center mt-20 mb-8">
+        <a href="index.html" class="inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition-transform transform hover:-translate-y-1">
+            ⚽ 豆知識一覧に戻る
+        </a>
+    </div>
+
+    </main>
+
+
+<script>
+const reportData = {
+    profile: {
+        title: "中田英寿の選手プロファイル",
+        attributes: [
+            { 
+                label: 'フィジカル/プレス耐性',
+                shortLabel: 'フィジカル',
+                title: '異次元のフィジカル',
+                text: '単なる筋力ではなく、強靭な体幹とバランス能力に裏打ちされた「技術」。相手のプレスを無力化し、密集地帯で時間と空間を創出する、彼のプレーの根幹をなす能力。'
+            },
+            { 
+                label: 'パス/ビジョン',
+                shortLabel: 'パス',
+                title: '知的な司令塔',
+                text: '試合の未来を予測し、チームを最適解へ導く「プロアクティブ（主体的）」な創造性。味方が「今いる場所」でなく「いるべき場所」へボールを送り込み、パスでスペースとチャンスを創り出す。'
+            },
+            { 
+                label: 'ボールキープ',
+                shortLabel: 'キープ力',
+                title: '合理的なボールキープ',
+                text: '相手の力を利用してボールを隠し、ファールなしでは奪取困難なキープ力。派手なドリブル突破ではなく、時間を作り味方を活かすための、極めて戦術的なプレー。'
+            },
+            { 
+                label: 'リーダーシップ',
+                shortLabel: 'リーダーシップ',
+                title: '破壊的リーダー',
+                text: '既存の常識を疑い、高い基準を要求することでチームを次のレベルへ引き上げる革新者。彼のプロフェッショナリズムは、ピッチ内外で絶対的な基準点となり、組織に緊張感をもたらした。'
+            },
+            { 
+                label: '守備貢献/戦術理解度',
+                shortLabel: '守備/戦術',
+                title: '完成されたMF',
+                text: '単なる「10番」ではなく、攻守に貢献する現代的なセントラル・ミッドフィルダー。豊富な運動量と高い戦術理解度でチームのバランスを保証する、攻守のエンジン役。'
+            }
+        ],
+        values: [95, 90, 95, 85, 88]
+    },
+    simulations: {
+        zaccheroni: {
+            eraName: "ザックジャパン (2014年W杯)",
+            eraIntro: "本田圭佑、香川真司、遠藤保仁らを擁し「史上最高」の呼び声も高かった技術集団。しかし、その華麗なパスワークの裏には、致命的な構造的欠陥が潜んでいました。",
+            problemTitle: "チームの致命的欠陥",
+            problemText: "攻撃時の構造的不備に起因する「カウンターへの脆弱性」と、世界レベルでは通用しなかった「中盤のフィジカル不足」。才能を支えるべき戦術的・物理的な『背骨』が欠けていました。",
+            solutionTitle: "中田英寿という新たなオプション",
+            solutionText: "彼の異次元のプレス耐性は、カウンターの起点となる安易なボールロストを劇的に減少させます。中盤に彼という『物理的な支柱』が立つことで、チームにこれまでとは異なる安定性をもたらし、前線の才能がより大胆に輝くための、新たな戦術的選択肢を提供できたはずです。",
+            pitchDescription: "ボランチの一角に中田を配置。長谷部と共に強固なフィルターを形成し、遠藤のタスクだったボール保持とプレス耐性を中田が担うことで、チーム全体の安定性を向上させます。",
+            comparison: {
+                title: "比較分析：中田英寿 vs 遠藤保仁",
+                player1: "中田英寿",
+                player2: "遠藤保仁",
+                attributes: [
+                    { name: "プレス耐性/ボールキープ", p1_score: 5, p2_score: 3, p1_text: "世界基準", p2_text: "国内基準" },
+                    { name: "物理的強度/球際", p1_score: 5, p2_score: 2, p1_text: "圧倒的", p2_text: "技術で回避" },
+                    { name: "ゲームメイク/テンポ", p1_score: 4, p2_score: 5, p1_text: "ダイレクト志向", p2_text: "卓越した支配力" },
+                    { name: "守備強度", p1_score: 4, p2_score: 3, p1_text: "高い貢献", p2_text: "予測でカバー" },
+                    { name: "ミドルシュート/推進力", p1_score: 5, p2_score: 3, p1_text: "強力な武器", p2_text: "限定的" },
+                ],
+                conclusion: "遠藤の卓越したゲームメイクとテンポを操る能力は、チームにとってかけがえのないものでした。それに加え、中田が持つ世界レベルのプレス耐性と物理的な安定性は、チームの課題であった『カウンターへの脆弱性』に対する、従来とは異なる強力な解決策となり得ます。彼の存在は、チームに『勝利への別の道筋』を示す、極めて価値の高い戦術的オプションとなったでしょう。"
+            }
+        },
+        moriyasu: {
+            eraName: "森保ジャパン (現代)",
+            eraIntro: "三笘薫、久保建英など個の能力は歴代最高レベル。高速カウンターを武器に強豪を破る一方、構造的な課題も抱えています。",
+            problemTitle: "チームの構造的課題",
+            problemText: "最大の課題は「引いた相手を崩せない」こと。守備を固めた相手に対し、攻撃が手詰まりになりがちです。また、前線で屈強なDFを背負ってボールを収められる『ポストプレーヤー』の不在も長年の問題です。",
+            solutionTitle: "鍵をこじ開ける存在",
+            solutionText: "彼の圧倒的なボールキープ力は、相手を中央に引きつけ、三笘や伊東が活きるサイドのスペースを創出します。彼の存在は、引いた相手を『力ずくでこじ開ける』ための、これまで日本が持てなかった強力な選択肢となります。",
+            pitchDescription: "インサイドハーフ（8番）や偽9番として起用。中央で相手のプレスを吸収し、攻撃の基準点となることで、チームに欠けていた『タメ』と『ファイナルサードでの落ち着き』をもたらします。",
+            comparison: {
+                title: "比較分析：中田英寿 vs 鎌田大地",
+                player1: "中田英寿",
+                player2: "鎌田大地",
+                attributes: [
+                    { name: "フィジカル/プレス耐性", p1_score: 5, p2_score: 4, p1_text: "異次元", p2_text: "高レベル" },
+                    { name: "パス/ビジョン", p1_score: 4, p2_score: 4, p1_text: "味方を動かすパス", p2_text: "スペースを突くパス" },
+                    { name: "ボールキープ", p1_score: 5, p2_score: 3, p1_text: "耐える/いなす", p2_text: "かわす/運ぶ" },
+                    { name: "守備貢献", p1_score: 4, p2_score: 4, p1_text: "運動量と規律", p2_text: "戦術的ポジショニング" },
+                    { name: "リーダーシップ", p1_score: 5, p2_score: 3, p1_text: "破壊的リーダー", p2_text: "チームプレーヤー" },
+                ],
+                conclusion: "鎌田は現代サッカーに不可欠な戦術眼と万能性を備えたトッププレーヤーです。それに加え、中田が持つ『個の力で局面を破壊する』という唯一無二の能力は、特に引いた相手を崩せない状況で、チームに新たな攻撃の選択肢をもたらします。彼の存在は、チームの戦術にさらなる深みと予測不可能性を与える強力なオプションとなったでしょう。"
+            }
+        }
+    }
+};
+
+let radarChart;
+
+document.addEventListener('DOMContentLoaded', () => {
+    initProfileTabs();
+    initRadarChart();
+    selectProfileTab(0);
+    selectEra('zaccheroni');
+});
+
+function initProfileTabs() {
+    const tabsContainer = document.getElementById('profile-tabs');
+    reportData.profile.attributes.forEach((attr, index) => {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = attr.shortLabel;
+        tabButton.className = 'profile-tab py-1 px-3 rounded-full text-sm font-semibold focus:outline-none';
+        tabButton.onclick = () => selectProfileTab(index);
+        tabsContainer.appendChild(tabButton);
+    });
+}
+
+function selectProfileTab(index) {
+    const tabs = document.querySelectorAll('#profile-tabs button');
+    tabs.forEach((tab, i) => {
+        tab.classList.toggle('active-profile-tab', i === index);
+    });
+    updateProfileDetail(index);
+}
+
+
+function initRadarChart() {
+    const ctx = document.getElementById('nakataRadarChart').getContext('2d');
+    const data = {
+        labels: reportData.profile.attributes.map(a => a.label.split('/')),
+        datasets: [{
+            label: '中田英寿の能力',
+            data: reportData.profile.values,
+            backgroundColor: 'rgba(30, 58, 138, 0.2)',
+            borderColor: 'rgba(30, 58, 138, 1)',
+            pointBackgroundColor: 'rgba(30, 58, 138, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(30, 58, 138, 1)'
+        }]
+    };
+
+    const options = {
+        maintainAspectRatio: false,
+        elements: {
+            line: {
+                borderWidth: 3
+            }
+        },
+        scales: {
+            r: {
+                angleLines: {
+                    color: 'rgba(0, 0, 0, 0.1)'
+                },
+                grid: {
+                    color: 'rgba(0, 0, 0, 0.1)'
+                },
+                pointLabels: {
+                    font: {
+                        size: 11,
+                        weight: 'bold'
+                    },
+                    color: '#374151'
+                },
+                ticks: {
+                    display: false,
+                    beginAtZero: true,
+                    max: 100,
+                    stepSize: 25
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: true
+            }
+        },
+        onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const activePoint = elements[0];
+                selectProfileTab(activePoint.index);
+            }
+        }
+    };
+
+    radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: data,
+        options: options
+    });
+}
+
+function updateProfileDetail(index) {
+    const detail = reportData.profile.attributes[index];
+    const container = document.getElementById('profile-detail');
+    container.innerHTML = `
+        <h3 class="font-bold text-xl mb-2 text-blue-800">${detail.title}</h3>
+        <p class="text-gray-700 leading-relaxed">${detail.text}</p>
+    `;
+    container.classList.remove('content-fade-in');
+    void container.offsetWidth;
+    container.classList.add('content-fade-in');
+}
+
+function selectEra(era) {
+    document.getElementById('tab-zac').classList.toggle('active-era-tab', era === 'zaccheroni');
+    document.getElementById('tab-moriyasu').classList.toggle('active-era-tab', era === 'moriyasu');
+    
+    const data = reportData.simulations[era];
+    const contentDiv = document.getElementById('simulation-content');
+    
+    let comparisonHTML = `
+        <div class="mb-8">
+            <h4 class="text-xl font-bold text-center mb-4 text-blue-800">${data.comparison.title}</h4>
+            <div class="space-y-4">
+    `;
+
+    data.comparison.attributes.forEach(attr => {
+        const p1_width = attr.p1_score * 20;
+        const p2_width = attr.p2_score * 20;
+        comparisonHTML += `
+            <div class="text-sm">
+                <p class="text-center font-semibold text-gray-600 mb-2">${attr.name}</p>
+                <div class="flex items-center gap-2">
+                    <span class="w-20 text-right font-bold text-blue-900">${data.comparison.player1}</span>
+                    <div class="flex-1 h-6 bg-gray-200 rounded-full"><div class="h-6 bg-blue-600 rounded-full" style="width: ${p1_width}%"></div></div>
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="w-20 text-right font-bold text-indigo-900">${data.comparison.player2}</span>
+                    <div class="flex-1 h-6 bg-gray-200 rounded-full"><div class="h-6 bg-indigo-500 rounded-full" style="width: ${p2_width}%"></div></div>
+                </div>
+            </div>
+        `;
+    });
+    
+    comparisonHTML += `
+            </div>
+            <div class="mt-6 p-4 bg-gray-100 rounded-lg">
+                <p class="text-gray-800 font-semibold text-center">${data.comparison.conclusion}</p>
+            </div>
+        </div>
+    `;
+
+    contentDiv.innerHTML = `
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-900">${data.eraName}</h3>
+            <p class="text-gray-600 mt-2 max-w-2xl mx-auto">${data.eraIntro}</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold mb-3 text-red-700">🔴 ${data.problemTitle}</h4>
+                    <p class="text-gray-700 leading-relaxed">${data.problemText}</p>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold mb-3 text-green-700">🟢 ${data.solutionTitle}</h4>
+                    <p class="text-gray-700 leading-relaxed">${data.solutionText}</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                     <h4 class="text-lg font-bold mb-2 text-green-800">ピッチ上の役割</h4>
+                     <p class="text-sm text-green-900">${data.pitchDescription}</p>
+                </div>
+            </div>
+            <div class="w-full">
+                ${comparisonHTML}
+            </div>
+        </div>
+    `;
+    
+    contentDiv.classList.remove('content-fade-in');
+    void contentDiv.offsetWidth;
+    contentDiv.classList.add('content-fade-in');
+}
+</script>
+
+</body>
+</html>

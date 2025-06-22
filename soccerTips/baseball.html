@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の野球 vs. サッカー人気</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f7f4;
+            color: #3d3d3d;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #3d3d3d;
+            color: #f8f7f4;
+        }
+        .nav-button:not(.active):hover {
+            background-color: #e9e7e2;
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-12 bg-white shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-800">日本で野球の人気がサッカーを上回る理由</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600">Jリーグが開幕して30年。サッカーが日本の国民的スポーツになれないのはなぜ？</p>
+        </div>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 md:space-y-28">
+
+            <section id="rhythm" class="section-fade-in">
+                <h2 class="text-3xl font-bold text-center mb-2">観戦スタイルの壁</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">最初の疑問は、試合のリズムと私たちの生活の関わりにあります。野球の「間」とサッカーの「流れ」。この違いが、無意識のうちに私たちの観戦スタイルを形成し、人気の一因となっているのかもしれません。</p>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-800">野球の「間」</h3>
+                        <div class="text-center text-5xl mb-4">⚾</div>
+                        <p class="text-gray-700">投手と打者の対決という個別のイベントが連なるターン制のゲーム。攻守交代の「間」や投球間の時間は、会話や食事をしながらの「ながら視聴」を可能にします。試合の流れが途切れ途切れなため、途中から見始めても状況を把握しやすく、日常生活に溶け込みやすいのが特徴です。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-green-800">サッカーの「流れ」</h3>
+                        <div class="text-center text-5xl mb-4">⚽</div>
+                        <p class="text-gray-700">90分間、プレーがほぼ途切れることなく続く流動的なゲーム。試合を深く理解するには、ボールがない場所の動きや戦術など、継続的な集中が求められます。一瞬の隙が決定機に繋がるため、観戦には「見るぞ」という意図的な時間の確保が必要になりがちです。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="history" class="section-fade-in">
+                <h2 class="text-3xl font-bold text-center mb-2">1世紀の差：歴史とメディアの力</h2>
+                 <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">しかし、観戦スタイルの違いだけが全てではありません。より決定的なのは、両スポーツが日本社会に根付いてきた歴史の長さと、メディアとの関係です。野球には、サッカーが決して持ち得なかった1世紀もの「先行者利益」が存在します。</p>
+                <div class="relative mt-8">
+                    <div class="border-l-2 border-gray-300 absolute h-full top-0 left-4 md:left-1/2 md:-ml-px"></div>
+                    <div class="space-y-12">
+                        <div class="relative flex items-center md:justify-end">
+                            <div class="w-8 h-8 rounded-full bg-blue-800 text-white flex items-center justify-center absolute left-4 -ml-4 md:left-1/2 md:-ml-4 z-10"></div>
+                            <div class="w-full md:w-1/2 md:pr-8">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h4 class="font-bold text-lg">1872年〜：野球の伝来と定着</h4>
+                                    <p class="mt-2 text-sm text-gray-600">明治維新と共に伝来。学校教育を通じて精神修養の手段として普及し、日本の伝統的価値観と結びつきました。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative flex items-center md:justify-start">
+                             <div class="w-8 h-8 rounded-full bg-blue-800 text-white flex items-center justify-center absolute left-4 -ml-4 md:left-1/2 md:-ml-4 z-10"></div>
+                            <div class="w-full md:w-1/2 md:pl-8">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h4 class="font-bold text-lg">1920年代〜：甲子園と新聞メディア</h4>
+                                    <p class="mt-2 text-sm text-gray-600">新聞社が主催する甲子園は、郷土の誇りをかけた国民的イベントに成長。メディアが積極的に物語を作り上げ、野球人気を全国に拡大しました。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative flex items-center md:justify-end">
+                             <div class="w-8 h-8 rounded-full bg-blue-800 text-white flex items-center justify-center absolute left-4 -ml-4 md:left-1/2 md:-ml-4 z-10"></div>
+                            <div class="w-full md:w-1/2 md:pr-8">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h4 class="font-bold text-lg">1950年代〜：プロ野球とテレビの時代</h4>
+                                    <p class="mt-2 text-sm text-gray-600">テレビの普及と共に、巨人戦のナイター中継は家庭の娯楽の王様に。「巨人・大鵬・卵焼き」は、戦後復興期の日本の象徴でした。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative flex items-center md:justify-start">
+                            <div class="w-8 h-8 rounded-full bg-green-800 text-white flex items-center justify-center absolute left-4 -ml-4 md:left-1/2 md:-ml-4 z-10"></div>
+                            <div class="w-full md:w-1/2 md:pl-8">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h4 class="font-bold text-lg">1993年：Jリーグ開幕</h4>
+                                    <p class="mt-2 text-sm text-gray-600">プロスポーツとして意図的に創設。野球が文化として完成された市場への、挑戦者としてのスタートでした。メディアとの関係も、ゼロから構築する必要がありました。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="data" class="section-fade-in">
+                <h2 class="text-3xl font-bold text-center mb-2">ファンダムの風景：数字で見る現在地</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">歴史が作った差は、現在の様々なデータに表れています。ここでは、ファン人口からメディアでの消費行動まで、両スポーツの「ファンダムモデル」の違いをインタラクティブなグラフで探ります。下のボタンで表示を切り替えて、その違いを体感してください。</p>
+                
+                <div class="bg-white rounded-lg shadow p-4 md:p-8">
+                    <div class="flex flex-wrap justify-center gap-2 mb-6">
+                        <button id="btn-fan-population" class="nav-button px-4 py-2 text-sm font-semibold rounded-full border border-gray-300">ファン人口</button>
+                        <button id="btn-attendance" class="nav-button px-4 py-2 text-sm font-semibold rounded-full border border-gray-300">観客動員数</button>
+                        <button id="btn-media" class="nav-button px-4 py-2 text-sm font-semibold rounded-full border border-gray-300">メディア視聴率</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sportsChart"></canvas>
+                    </div>
+                    <p id="chart-caption" class="text-center text-sm text-gray-500 mt-4 h-10"></p>
+                </div>
+            </section>
+
+            <section id="next-gen" class="section-fade-in">
+                <h2 class="text-3xl font-bold text-center mb-2">次世代のファンと「転換問題」</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">未来のファン層に目を向けると、興味深いパラドックスが見えてきます。子供たちが「プレーする」スポーツとしてはサッカーが人気ですが、大人が「観戦する」スポーツとしては野球が優位です。この「ねじれ」は、サッカーが抱える大きな課題を示唆しています。</p>
+                <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow text-center">
+                    <div class="space-y-2">
+                        <div class="bg-green-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg">プレーする子供世代</h4>
+                            <p class="text-3xl mt-2">⚽ > ⚾</p>
+                            <p class="text-sm text-gray-600">習い事や部活動でサッカーを選ぶ子供は野球より多い傾向</p>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-gray-400"></div>
+                        </div>
+                         <div class="flex justify-center">
+                            <div class="w-px h-8 bg-gray-400"></div>
+                            <div class="text-gray-600 px-4 font-bold self-center">転換の壁</div>
+                            <div class="w-px h-8 bg-gray-400"></div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-gray-400"></div>
+                        </div>
+                        <div class="bg-blue-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg">観戦する大人世代</h4>
+                             <p class="text-3xl mt-2">⚾ > ⚽</p>
+                            <p class="text-sm text-gray-600">プレー経験が必ずしもJリーグ観戦に繋がっていない</p>
+                        </div>
+                    </div>
+                     <p class="mt-6 text-gray-700">この背景には、親から子へ受け継がれる観戦文化や、甲子園という巨大な「ファン育成装置」の存在があります。子供時代のプレー経験だけでは、野球が持つ文化的な引力を覆すのは容易ではないのです。</p>
+                </div>
+            </section>
+
+             <section id="global" class="section-fade-in">
+                <h2 class="text-3xl font-bold text-center mb-2">世界との比較：なぜ日本は違うのか</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">ヨーロッパや南米でサッカーが持つ熱狂は、なぜ日本では限定的なのでしょうか。それは、スポーツが文化として根付く過程の違いにあります。サッカーは、日本にとっては「輸入品」であり、海外の強力なリーグとの競争という特有の課題も抱えています。</p>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-2xl font-bold mb-4 text-center">欧州・南米モデル</h3>
+                         <p class="text-center text-gray-700"><strong class="text-green-800">「文化として誕生」</strong><br>19世紀、労働者階級のコミュニティやナショナル・アイデンティティの象徴として、人々の生活から有機的に生まれました。それは単なるスポーツではなく、生活、宗教、アイデンティティそのものです。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-2xl font-bold mb-4 text-center">日本モデル</h3>
+                        <p class="text-center text-gray-700"><strong class="text-blue-800">「製品として輸入」</strong><br>Jリーグは、完成されたプロスポーツとして「輸入」されました。既に野球が国民的娯楽の地位を確立した市場で、国内の野球、そして海外のトップリーグという2つの競争相手と戦わなければなりません。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="conclusion" class="section-fade-in text-center">
+                 <h2 class="text-3xl font-bold text-center mb-2">結論：野球は日本のライフスタイルに合致したスポーツ</h2>
+                 <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">本分析から導き出される結論は明確です。野球が日本で圧倒的な人気を誇るのは、その試合のリズムと観戦スタイルが、日本の伝統的な生活様式と完璧に調和しているためです。</p>
+                <div class="max-w-2xl mx-auto text-left bg-white p-8 rounded-lg shadow">
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start"><span class="text-yellow-600 mr-3 mt-1">✓</span><span><strong>生活との調和:</strong> 攻守交代や投球間の「間」は、夕食や家族団らんといった日本の家庭の日常風景に自然に溶け込み、「ながら視聴」を可能にします。</span></li>
+                        <li class="flex items-start"><span class="text-yellow-600 mr-3 mt-1">✓</span><span><strong>柔軟な観戦スタイル:</strong> 試合の途中から見始めても状況を把握しやすく、帰宅が遅れがちな多忙な現代人の生活にもフィットします。</span></li>
+                        <li class="flex items-start"><span class="text-yellow-600 mr-3 mt-1">✓</span><span><strong>文化的定着:</strong> この観戦文化は1世紀かけてメディアと共に築かれ、世代を超えて受け継がれてきました。これは、90分間の集中を要するサッカーが容易には越えられない、構造的な強みとなっています。</span></li>
+                    </ul>
+                    <p class="mt-6 font-semibold">最終的に、「忙しいからサッカーを見ない」というのは現象の一面に過ぎません。根本的な理由は、野球が日本のライフスタイルそのものと分かちがたく結びついた「国民的娯楽」として、深く文化に根付いているという事実にあるのです。</p>
+                </div>
+            </section>
+            
+            <div class="text-center mt-20 mb-8">
+                <a href="index.html" class="inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition-transform transform hover:-translate-y-1">
+                    ⚽ 豆知識一覧に戻る
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartData = {
+                fanPopulation: {
+                    labels: ['プロ野球 (NPB)', 'Jリーグ'],
+                    values: [2210, 952],
+                    caption: 'ファン人口（推定、単位：万人）。野球はサッカーの2倍以上のファンを抱えています。'
+                },
+                attendance: {
+                    labels: ['NPB (1試合平均)', 'J1 (1試合平均)'],
+                    values: [28121, 19000],
+                    caption: 'トップリーグの1試合平均観客数。NPBは安定して高い動員力を誇ります。'
+                },
+                media: {
+                    labels: ['国内リーグ視聴', '代表戦視聴'],
+                    datasets: [
+                        {
+                            label: '野球',
+                            data: [8, 34.4],
+                            backgroundColor: 'rgba(30, 64, 175, 0.7)',
+                            borderColor: 'rgba(30, 64, 175, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'サッカー',
+                            data: [3.5, 46.6],
+                            backgroundColor: 'rgba(22, 101, 52, 0.7)',
+                            borderColor: 'rgba(22, 101, 52, 1)',
+                            borderWidth: 1
+                        }
+                    ],
+                    caption: 'テレビ視聴率（%、代表戦はピーク時）。国内リーグは野球、代表戦はサッカーが優位。「ファンダムモデル」の違いが顕著です。'
+                }
+            };
+
+            const ctx = document.getElementById('sportsChart').getContext('2d');
+            let sportsChart;
+
+            function createChart(type) {
+                if (sportsChart) {
+                    sportsChart.destroy();
+                }
+
+                const captionEl = document.getElementById('chart-caption');
+
+                if (type === 'media') {
+                    const data = chartData.media;
+                    sportsChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: data.datasets
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: '視聴率 (%)' }
+                                }
+                            },
+                            plugins: {
+                                title: { display: true, text: 'メディア視聴率比較' },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.dataset.label}: ${context.raw}%`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    captionEl.textContent = data.caption;
+                } else {
+                    const data = chartData[type];
+                    sportsChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                data: data.values,
+                                backgroundColor: ['rgba(30, 64, 175, 0.7)', 'rgba(22, 101, 52, 0.7)'],
+                                borderColor: ['rgba(30, 64, 175, 1)', 'rgba(22, 101, 52, 1)'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: type === 'fanPopulation' ? '万人' : '人' }
+                                }
+                            },
+                             plugins: {
+                                legend: { display: false },
+                                title: { display: true, text: type === 'fanPopulation' ? 'ファン人口比較' : '1試合平均観客数比較' },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.label}: ${context.raw.toLocaleString()}`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    captionEl.textContent = data.caption;
+                }
+            }
+
+            const buttons = [
+                { id: 'btn-fan-population', chartType: 'fanPopulation' },
+                { id: 'btn-attendance', chartType: 'attendance' },
+                { id: 'btn-media', chartType: 'media' },
+            ];
+
+            buttons.forEach(btnInfo => {
+                const button = document.getElementById(btnInfo.id);
+                button.addEventListener('click', () => {
+                    buttons.forEach(b => document.getElementById(b.id).classList.remove('active'));
+                    button.classList.add('active');
+                    createChart(btnInfo.chartType);
+                });
+            });
+            
+            document.getElementById('btn-fan-population').click();
+
+            const sections = document.querySelectorAll('.section-fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
