@@ -1,206 +1,244 @@
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jリーグサポーターのマナーが悪い理由</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:site_name" content="nonoKuno のサッカー教室">
+    <title>Jリーグサポーターのマナーが悪い理由 - nonoKuno のサッカー教室</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="tipsStyle.css">
+    <link rel="icon" href="../favicon.ico">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "nonoKuno のサッカー教室",
+      "url": "https://nonokuno.github.io/soccerTips/badfan.html"
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #F8F9FA;
-            color: #212529;
-        }
-        .section-title {
-            border-bottom: 2px solid #FBBF24; /* Amber-400 */
-            padding-bottom: 0.5rem;
-        }
+        /* 個別スタイル */
         .card {
             background-color: white;
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        .timeline {
+            position: relative;
+            margin-top: 2rem;
+            padding-left: 1rem;
         }
         .timeline-item {
-            border-left: 3px solid #D1D5DB; /* Gray-300 */
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 3px solid #D1D5DB;
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
         }
         .timeline-dot {
             position: absolute;
             left: -0.875rem;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0.2rem;
             width: 1.5rem;
             height: 1.5rem;
             background-color: white;
-            border: 3px solid #FBBF24; /* Amber-400 */
+            border: 3px solid #28a745;
             border-radius: 9999px;
         }
+        .identity-card {
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
         .identity-card.active {
-            border-color: #D97706;
-            box-shadow: 0 0 15px rgba(217, 119, 6, 0.5);
+            border-color: #28a745;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
         }
-        [data-section] {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        .identity-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
         }
-        [data-section].visible {
-            opacity: 1;
-            transform: translateY(0);
+        .identity-toggle {
+            display: flex;
+            background-color: #e5e7eb;
+            padding: 0.25rem;
+            border-radius: 9999px;
+        }
+        .identity-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background-color: transparent;
+        }
+        .identity-btn.active {
+            background-color: #28a745;
+            color: #ffffff;
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>💡 日本サッカー豆知識</h1>
+            </div>
+        </div>
+    </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <main>
+        <div class="container">
+            <article>
+                <header class="trivium-header">
+                    <h2>Jリーグサポーターのマナーが悪い理由</h2>
+                    <p class="subtitle">他のスポーツと比較して問題とされるJリーグの一部サポーターによる問題行動。日本代表の対外試合ではむしろ褒められることの多い日本のサッカーファンが、なぜJリーグでは問題を起こしてしまうのでしょうか。</p>
+                </header>
 
-        <section id="hero" class="text-center mb-16 md:mb-24" data-section>
-            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">Jリーグサポーターのマナーが悪い理由</h2>
-            <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">他のスポーツと比較して問題とされるJリーグの一部サポーターによる問題行動。日本代表の対外試合ではむしろ褒められることの多い日本のサッカーファンが、なぜJリーグでは問題を起こしてしまうのでしょうか</p>
-        </section>
-
-        <section id="drivers" class="mb-16 md:mb-24" data-section>
-            <h3 class="section-title text-2xl md:text-3xl font-bold mb-8">問題の根源：文化・心理・構造</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">問題行動の根源は、Jリーグが輸入した応援文化、スタジアムの特殊な心理状態、そしてクラブとサポーターの関係性という、より複雑な要因の組み合わせにあります。</p>
-
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="card p-6">
-                    <h4 class="text-xl font-bold mb-3 text-center">サポーター文化の源流</h4>
-                    <div class="flex justify-around">
-                        <div class="text-center w-5/12">
-                            <h5 class="font-bold text-lg text-blue-600">ウルトラ (Ultras)</h5>
-                            <p class="text-sm text-gray-600 mt-2">欧州発祥の組織的サポーター。応援が主目的で、クラブへの絶対的忠誠を誓い、チャントやコレオでチームを鼓舞する。Jリーグのコアサポーターのモデル。</p>
+                <section class="trivium-content">
+                    <h3>問題の根源：文化・心理・構造</h3>
+                    <p>問題行動の根源は、Jリーグが輸入した応援文化、スタジアムの特殊な心理状態、そしてクラブとサポーターの関係性という、より複雑な要因の組み合わせにあります。</p>
+                    
+                    <div class="col-2-grid">
+                        <div class="card">
+                            <h4 style="font-size: 1.25rem; font-weight: bold; text-align: center; margin-bottom: 1rem;">サポーター文化の源流</h4>
+                            <div style="display: flex; justify-content: space-around;">
+                                <div style="text-align: center; width: 45%;">
+                                    <h5 style="font-weight: bold; font-size: 1.1rem; color: #2563eb;">ウルトラ (Ultras)</h5>
+                                    <p style="font-size: 0.9rem; color: #4b5563; margin-top: 0.5rem;">欧州発祥の組織的サポーター。応援が主目的で、クラブへの絶対的忠誠を誓い、チャントやコレオでチームを鼓舞する。Jリーグのコアサポーターのモデル。</p>
+                                </div>
+                                <div style="border-left: 1px solid #d1d5db;"></div>
+                                <div style="text-align: center; width: 45%;">
+                                    <h5 style="font-weight: bold; font-size: 1.1rem; color: #dc2626;">フーリガン (Hooligan)</h5>
+                                    <p style="font-size: 0.9rem; color: #4b5563; margin-top: 0.5rem;">暴力行為自体が目的。試合を口実に、敵対グループとの衝突を求める。応援文化とは区別される。</p>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.75rem; color: #6b7280; margin-top: 1rem; text-align: center;">Jリーグの問題は、ウルトラ文化の熱狂が負の側面として現れたものと解釈できます。</p>
                         </div>
-                        <div class="border-l border-gray-300"></div>
-                        <div class="text-center w-5/12">
-                            <h5 class="font-bold text-lg text-red-600">フーリガン (Hooligan)</h5>
-                            <p class="text-sm text-gray-600 mt-2">暴力行為自体が目的。試合を口実に、敵対グループとの衝突を求める。応援文化とは区別される。</p>
+
+                        <div class="card">
+                            <h4 style="font-size: 1.25rem; font-weight: bold; text-align: center; margin-bottom: 1rem;">スタンドの集団心理</h4>
+                            <p style="font-size: 0.9rem; color: #4b5563;">ゴール裏という密集し、匿名性の高い環境では、特殊な心理が働きます。</p>
+                            <ul style="margin-top: 0.5rem; font-size: 0.9rem; list-style-type: none; padding: 0;">
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="font-weight: bold; color: #D97706; margin-right: 0.5rem;">✓</span><span><strong>内集団バイアス:</strong>「自分たちのクラブ」を過剰に肯定し、ライバル（外集団）への敵意を強める。</span></li>
+                                <li style="display: flex; align-items: flex-start;"><span style="font-weight: bold; color: #D97706; margin-right: 0.5rem;">✓</span><span><strong>没個性化:</strong> 集団に埋もれることで個人の責任感が薄れ、普段はしないような攻撃的行動のハードルが下がる。</span></li>
+                            </ul>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-4 text-center">Jリーグの問題は、ウルトラ文化の熱狂が負の側面として現れたものと解釈できます。</p>
-                </div>
 
-                <div class="card p-6">
-                    <h4 class="text-xl font-bold mb-3 text-center">スタンドの集団心理</h4>
-                     <p class="text-sm text-gray-600">ゴール裏という密集し、匿名性の高い環境では、特殊な心理が働きます。</p>
-                    <ul class="mt-2 space-y-2 text-sm">
-                        <li class="flex items-start"><span class="font-bold text-amber-600 mr-2">✓</span><span><strong class="font-semibold">内集団バイアス:</strong>「自分たちのクラブ」を過剰に肯定し、ライバル（外集団）への敵意を強める。</span></li>
-                        <li class="flex items-start"><span class="font-bold text-amber-600 mr-2">✓</span><span><strong class="font-semibold">没個性化:</strong> 集団に埋もれることで個人の責任感が薄れ、普段はしないような攻撃的行動のハードルが下がる。</span></li>
-                    </ul>
+                    <h4 style="text-align: center; font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem;">ケーススタディ：Jリーグで発生した主な問題事例</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p style="font-weight: bold; font-size: 1.1rem;">2014年 浦和レッズ：人種差別的横断幕</p>
+                            <p style="color: #4b5563; font-size: 0.9rem;">「JAPANESE ONLY」という横断幕が掲出され、Jリーグ史上初の無観客試合という重い処分が下された。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p style="font-weight: bold; font-size: 1.1rem;">2017年 ガンバ大阪：ナチス親衛隊を想起させる旗</p>
+                            <p style="color: #4b5563; font-size: 0.9rem;">サポーターグループがナチス親衛隊のシンボルに酷似した旗を掲出。クラブは該当グループを解散させ、無期限の入場禁止処分とした。</p>
+                        </div>
+                        <div class="timeline-item">
+                             <div class="timeline-dot"></div>
+                            <p style="font-weight: bold; font-size: 1.1rem;">2019年 鹿島アントラーズ：人種差別的なSNS投稿</p>
+                            <p style="color: #4b5563; font-size: 0.9rem;">対戦相手の外国籍選手に対し、サポーターが人種差別的な内容を投稿。クラブが個人を特定し、無期限の入場禁止処分を下した。</p>
+                        </div>
+                        <div class="timeline-item">
+                             <div class="timeline-dot"></div>
+                            <p style="font-weight: bold; font-size: 1.1rem;">2023年 浦和レッズ・名古屋グランパス：天皇杯での暴動事件</p>
+                            <p style="color: #4b5563; font-size: 0.9rem;">試合後にサポーターがピッチに乱入し暴動行為に。浦和には翌年度の天皇杯参加資格剥奪という前代未聞の処分が下された。</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #6b7280; margin-top: 1rem; text-align: center;">これらの事件は特定のクラブに限った話ではなく、リーグ全体で散見される構造的な課題であることを示唆しています。</p>
+
+                    <h3>二つの顔：Jリーグのパラドックス</h3>
+                    <p>最も興味深い謎は、なぜ国内では問題を起こすファンが、国際舞台では「模範的」と称賛されるのか。答えは、状況によって切り替わる「アイデンティティ」にあります。</p>
+
+                    <div class="identity-toggle-container">
+                        <div class="identity-toggle">
+                            <button id="btn-club" class="identity-btn active">クラブのサポーター</button>
+                            <button id="btn-national" class="identity-btn">日本のサポーター</button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-2-grid">
+                        <div id="card-club" class="identity-card card active">
+                            <h4 style="font-size: 1.25rem; font-weight: bold; text-align: center; margin-bottom: 1rem;">国内リーグ (Jリーグ)</h4>
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <span style="font-size: 2rem;">⚔️</span>
+                                <p style="font-weight: bold; font-size: 1.1rem; margin-top: 0.25rem;">クラブ・アイデンティティ</p>
+                            </div>
+                            <p>「私は◯◯（クラブ名）のサポーターだ」。主要な対立軸はライバルクラブ。地域やクラブの誇りをかけた部族主義的な感情が刺激され、内集団バイアスが先鋭化。時に攻撃的・排他的な行動につながります。</p>
+                        </div>
+                        <div id="card-national" class="identity-card card">
+                             <h4 style="font-size: 1.25rem; font-weight: bold; text-align: center; margin-bottom: 1rem;">国際試合 (ワールドカップ)</h4>
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <span style="font-size: 2rem;">🌏</span>
+                                 <p style="font-weight: bold; font-size: 1.1rem; margin-top: 0.25rem;">ナショナル・アイデンティティ</p>
+                            </div>
+                            <p>「私は日本のサポーターだ」。ファンは自らを「国の顔」「大使」と認識。行動規範は、日本の良いイメージ（礼儀、清潔さ）を世界に示すことへと変化。スタジアム清掃などの称賛される行動が生まれます。</p>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="conclusion-box" style="margin-top: 3rem;">
+                    <h3 style="font-size: 1.8rem; text-align: center;">結論：なぜJリーグファンのマナーは悪いと言われるのか？</h3>
+                    <p>その答えは、単一の理由ではなく、以下の三つの要因が複合的に絡み合った結果です。</p>
+                    <div style="margin-top: 1.5rem; space-y: 1.5rem;">
+                        <div style="display: flex; align-items: flex-start;">
+                            <div style="flex-shrink: 0; height: 2rem; width: 2rem; border-radius: 9999px; background-color: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem;">1</div>
+                            <div>
+                                <h4 style="font-weight: bold; font-size: 1.1rem;">「ウルトラ」文化の影響</h4>
+                                <p style="color: #4b5563; margin-top: 0.25rem;">Jリーグの熱狂的な応援は、ヨーロッパの「ウルトラ」と呼ばれるサポーター文化をモデルにしています。これはクラブへの絶対的な忠誠心と強力な一体感を生む一方で、時に排他的で攻撃的な側面を現します。</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; margin-top: 1rem;">
+                            <div style="flex-shrink: 0; height: 2rem; width: 2rem; border-radius: 9999px; background-color: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem;">2</div>
+                            <div>
+                                <h4 style="font-weight: bold; font-size: 1.1rem;">特殊な集団心理</h4>
+                                <p style="color: #4b5563; margin-top: 0.25rem;">ゴール裏のような密集し匿名性の高い環境では、「内集団バイアス」（仲間意識の過剰な高まりと、敵対チームへの敵意）や「没個性化」（集団に埋もれ個人の責任感が薄れる状態）といった集団心理が働き、普段は抑制される攻撃的な行動のハードルを下げます。</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; margin-top: 1rem;">
+                            <div style="flex-shrink: 0; height: 2rem; width: 2rem; border-radius: 9999px; background-color: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem;">3</div>
+                            <div>
+                                <h4 style="font-weight: bold; font-size: 1.1rem;">状況で変わる「アイデンティティ」</h4>
+                                <p style="color: #4b5563; margin-top: 0.25rem;">最も重要なのは、サポーターが置かれる状況によって行動規範が変わる点です。国内リーグでは「クラブのサポーター」としてライバルクラブへの対抗意識が先鋭化しますが、国際試合では「日本の代表」として振る舞い、行動が模範的になります。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                        <p style="font-weight: 600; text-align: center;">つまり、Jリーグの問題行動は、個人の資質以上に、<span class="highlight">「輸入された応援文化」</span>が、<span class="highlight">「スタジアムという特殊な環境」</span>で増幅され、<span class="highlight">「クラブ対抗という対立構造」</span>によって特定の方向に導かれた結果、発生する構造的な現象であると言えます。</p>
+                    </div>
                 </div>
-            </div>
+            </article>
             
-            <div>
-                <h4 class="text-xl font-bold mb-6 text-center">ケーススタディ：Jリーグで発生した主な問題事例</h4>
-                <div class="relative pl-8">
-                    <div class="timeline-item pl-8 py-4 relative">
-                        <div class="timeline-dot"></div>
-                        <p class="font-bold text-lg">2014年 浦和レッズ：人種差別的横断幕</p>
-                        <p class="text-gray-600 text-sm">「JAPANESE ONLY」という横断幕が掲出され、Jリーグ史上初の無観客試合という重い処分が下された。</p>
-                    </div>
-                    <div class="timeline-item pl-8 py-4 relative">
-                        <div class="timeline-dot"></div>
-                        <p class="font-bold text-lg">2017年 ガンバ大阪：ナチス親衛隊を想起させる旗</p>
-                        <p class="text-gray-600 text-sm">サポーターグループがナチス親衛隊のシンボルに酷似した旗を掲出。クラブは該当グループを解散させ、無期限の入場禁止処分とした。</p>
-                    </div>
-                    <div class="timeline-item pl-8 py-4 relative">
-                         <div class="timeline-dot"></div>
-                        <p class="font-bold text-lg">2019年 鹿島アントラーズ：人種差別的なSNS投稿</p>
-                        <p class="text-gray-600 text-sm">対戦相手の外国籍選手に対し、サポーターが人種差別的な内容を投稿。クラブが個人を特定し、無期限の入場禁止処分を下した。</p>
-                    </div>
-                    <div class="timeline-item pl-8 py-4 relative border-l-transparent">
-                         <div class="timeline-dot"></div>
-                        <p class="font-bold text-lg">2023年 浦和レッズ・名古屋グランパス：天皇杯での暴動事件</p>
-                        <p class="text-gray-600 text-sm">試合後にサポーターがピッチに乱入し暴動行為に。浦和には翌年度の天皇杯参加資格剥奪という前代未聞の処分が下された。</p>
-                    </div>
-                </div>
-                 <p class="text-xs text-gray-500 mt-4 text-center">これらの事件は特定のクラブに限った話ではなく、リーグ全体で散見される構造的な課題であることを示唆しています。</p>
+            <div class="back-link-container">
+                <a href="index.html" class="project-link">⚽ 豆知識一覧に戻る</a>
             </div>
-
-        </section>
-
-        <section id="paradox" class="mb-16 md:mb-24" data-section>
-            <h3 class="section-title text-2xl md:text-3xl font-bold mb-2">二つの顔：Jリーグのパラドックス</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">最も興味深い謎は、なぜ国内では問題を起こすファンが、国際舞台では「模範的」と称賛されるのか。答えは、状況によって切り替わる「アイデンティティ」にあります。</p>
-            
-            <div class="flex justify-center mb-8">
-                <div class="bg-gray-200 p-1 rounded-full flex space-x-1">
-                    <button id="btn-club" class="px-4 py-1.5 text-sm font-semibold rounded-full transition-colors duration-300">クラブのサポーター</button>
-                    <button id="btn-national" class="px-4 py-1.5 text-sm font-semibold rounded-full transition-colors duration-300">日本のサポーター</button>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div id="card-club" class="identity-card card p-6 border-2 border-transparent">
-                    <h4 class="text-xl font-bold mb-3 text-center">国内リーグ (Jリーグ)</h4>
-                    <div class="text-center mb-4">
-                        <span class="text-3xl">⚔️</span>
-                        <p class="font-bold text-lg mt-1">クラブ・アイデンティティ</p>
-                    </div>
-                    <p class="text-gray-600">「私は◯◯（クラブ名）のサポーターだ」。主要な対立軸はライバルクラブ。地域やクラブの誇りをかけた部族主義的な感情が刺激され、内集団バイアスが先鋭化。時に攻撃的・排他的な行動につながります。</p>
-                </div>
-                <div id="card-national" class="identity-card card p-6 border-2 border-transparent">
-                    <h4 class="text-xl font-bold mb-3 text-center">国際試合 (ワールドカップ)</h4>
-                    <div class="text-center mb-4">
-                        <span class="text-3xl">🌏</span>
-                         <p class="font-bold text-lg mt-1">ナショナル・アイデンティティ</p>
-                    </div>
-                    <p class="text-gray-600">「私は日本のサポーターだ」。ファンは自らを「国の顔」「大使」と認識。行動規範は、日本の良いイメージ（礼儀、清潔さ）を世界に示すことへと変化。スタジアム清掃などの称賛される行動が生まれます。</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="conclusion" data-section>
-            <h3 class="section-title text-2xl md:text-3xl font-bold mb-8">結論：なぜJリーグファンのマナーは悪いと言われるのか？</h3>
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <p class="text-gray-700 leading-relaxed">では、なぜJリーグファンのマナーは悪いと言われるのか？<br>その答えは、単一の理由ではなく、以下の三つの要因が複合的に絡み合った結果です。</p>
-                <div class="mt-6 space-y-6">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold mr-4">1</div>
-                        <div>
-                            <h4 class="font-bold text-lg">「ウルトラ」文化の影響</h4>
-                            <p class="text-gray-600 mt-1">Jリーグの熱狂的な応援は、ヨーロッパの「ウルトラ」と呼ばれるサポーター文化をモデルにしています。これはクラブへの絶対的な忠誠心と強力な一体感を生む一方で、時に排他的で攻撃的な側面を現します。</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold mr-4">2</div>
-                        <div>
-                            <h4 class="font-bold text-lg">特殊な集団心理</h4>
-                            <p class="text-gray-600 mt-1">ゴール裏のような密集し匿名性の高い環境では、「内集団バイアス」（仲間意識の過剰な高まりと、敵対チームへの敵意）や「没個性化」（集団に埋もれ個人の責任感が薄れる状態）といった集団心理が働き、普段は抑制される攻撃的な行動のハードルを下げます。</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold mr-4">3</div>
-                        <div>
-                            <h4 class="font-bold text-lg">状況で変わる「アイデンティティ」</h4>
-                            <p class="text-gray-600 mt-1">最も重要なのは、サポーターが置かれる状況によって行動規範が変わる点です。国内リーグでは「クラブのサポーター」としてライバルクラブへの対抗意識が先鋭化しますが、国際試合では「日本の代表」として振る舞い、行動が模範的になります。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-8 pt-6 border-t border-gray-200">
-                    <p class="text-gray-800 font-semibold text-center">つまり、Jリーグの問題行動は、個人の資質以上に、<strong class="text-amber-600">「輸入された応援文化」</strong>が、<strong class="text-amber-600">「スタジアムという特殊な環境」</strong>で増幅され、<strong class="text-amber-600">「クラブ対抗という対立構造」</strong>によって特定の方向に導かれた結果、発生する構造的な現象であると言えます。</p>
-                </div>
-            </div>
-        </section>
-    
-    <div class="text-center mt-20 mb-8">
-        <a href="index.html" class="inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition-transform transform hover:-translate-y-1">
-            ⚽ 豆知識一覧に戻る
-        </a>
-    </div>
-
+        </div>
     </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.<br><span id="version-display"></span></p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Identity paradox interaction
             const btnClub = document.getElementById('btn-club');
             const btnNational = document.getElementById('btn-national');
             const cardClub = document.getElementById('card-club');
@@ -208,17 +246,13 @@
 
             function setActiveIdentity(identity) {
                 if (identity === 'club') {
-                    btnClub.classList.add('bg-amber-500', 'text-white');
-                    btnClub.classList.remove('bg-gray-200', 'text-black');
-                    btnNational.classList.add('bg-gray-200', 'text-black');
-                    btnNational.classList.remove('bg-amber-500', 'text-white');
+                    btnClub.classList.add('active');
+                    btnNational.classList.remove('active');
                     cardClub.classList.add('active');
                     cardNational.classList.remove('active');
                 } else {
-                    btnNational.classList.add('bg-amber-500', 'text-white');
-                    btnNational.classList.remove('bg-gray-200', 'text-black');
-                    btnClub.classList.add('bg-gray-200', 'text-black');
-                    btnClub.classList.remove('bg-amber-500', 'text-white');
+                    btnNational.classList.add('active');
+                    btnClub.classList.remove('active');
                     cardNational.classList.add('active');
                     cardClub.classList.remove('active');
                 }
@@ -226,26 +260,17 @@
 
             btnClub.addEventListener('click', () => setActiveIdentity('club'));
             btnNational.addEventListener('click', () => setActiveIdentity('national'));
-            
-            // Set initial state
-            setActiveIdentity('club');
-
-            // Scroll animations
-            const sections = document.querySelectorAll('[data-section]');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
         });
+
+        fetch('version.json')
+            .then(response => response.json())
+            .then(data => {
+                const versionElement = document.getElementById('version-display');
+                if (versionElement) {
+                    versionElement.textContent = `v${data.version}`;
+                }
+            })
+            .catch(error => console.error('Error fetching version:', error));
     </script>
 </body>
 </html>

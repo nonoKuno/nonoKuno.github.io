@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="nonoKuno のサッカー教室">
+    <title>左利きの右サイドDFがいない理由 - nonoKuno のサッカー教室</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="tipsStyle.css">
+    <link rel="icon" href="../favicon.ico">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "nonoKuno のサッカー教室",
+      "url": "https://nonokuno.github.io/soccerTips/left.html"
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 1rem auto;
+            height: 350px;
+        }
+        .pos-btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .pos-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            border: 1px solid #cbd5e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+        .pos-btn.active {
+            background-color: #8b0000;
+            color: #fff;
+            border-color: #8b0000;
+        }
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .analysis-card h4 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .analysis-card h5 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .analysis-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .analysis-card li {
+            margin-bottom: 0.5rem;
+        }
+        .reason-card, .case-study-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            text-align: center;
+        }
+        .reason-card h4, .case-study-card h4 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+        }
+        .reason-card p, .case-study-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #495057;
+        }
+        .case-study-card .case-subtitle {
+            font-weight: bold;
+            color: #8b0000;
+            margin-bottom: 0.5rem;
+        }
+        .feedback-loop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .feedback-item {
+            padding: 0.5rem 1rem;
+            border: 2px solid #8b0000;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .feedback-arrow {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8b0000;
+        }
+        @media (max-width: 767px) {
+            .analysis-card .chart-container {
+                height: 300px; /* グラフの高さを300pxに指定 */
+            }
+            .analysis-card .feedback-loop {
+                flex-direction: column; /* 要素を縦並びに変更 */
+            }
+            .analysis-card .feedback-arrow {
+                transform: rotate(90deg); /* 矢印の向きを90度回転 */
+            }
+        }
+        .analysis-card .col-2-grid > div {
+            min-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>💡 日本サッカー豆知識</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <article>
+                <header class="trivium-header">
+                    <h2>左利きの右サイドDFがいない理由</h2>
+                    <p class="subtitle">
+                        現代サッカーにおける、一つの戦術的な謎。それは左利き選手の希少性から始まり、チーム戦術、育成システムが絡み合う複雑な構造問題に繋がっています。
+                    </p>
+                </header>
+
+                <section class="trivium-content">
+                    <h3>戦術的損益シミュレーター</h3>
+                    <p style="text-align: center;">ポジションを選択して、左利きDFを配置した際の戦術的なメリットとデメリットを比較します。</p>
+                    
+                    <div class="analysis-card" style="margin-top: 1.5rem;">
+                        <div class="pos-btn-container">
+                            <button id="btn-lsb" class="pos-btn active">左SB</button>
+                            <button id="btn-lcb" class="pos-btn">左CB</button>
+                            <button id="btn-rsb" class="pos-btn">右SB</button>
+                            <button id="btn-rcb" class="pos-btn">右CB</button>
+                        </div>
+                        <div class="col-2-grid">
+                            <div>
+                                <div class="chart-container">
+                                    <canvas id="positionChart"></canvas>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 id="analysis-title"></h4>
+                                <div>
+                                    <h5 style="color: #155724;">✅ メリット (Pros)</h5>
+                                    <ul id="pros-list"></ul>
+                                </div>
+                                <div style="margin-top: 1rem;">
+                                    <h5 style="color: #721c24;">❌ デメリット (Cons)</h5>
+                                    <ul id="cons-list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>核心に迫る３つの構造的理由</h3>
+                     <p style="text-align: center;">この現象は偶然ではありません。戦術、身体特性、育成環境が織りなす必然なのです。</p>
+                    <div class="col-2-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                        <div class="reason-card">
+                            <h4>🧲 理由１：左サイドの強力な「引力」</h4>
+                            <p>左サイドは左利き選手にとって、その価値を最大化できる「聖域」です。オープンな体勢でのビルドアップ、プレーの勢いを止めないクロス供給、プレス耐性の高さ。これらの圧倒的な戦術的優位性が、希少な左利き選手を左サイドに引き寄せます。</p>
+                        </div>
+                        <div class="reason-card">
+                            <h4>🚧 理由２：右サイドの許容しがたい「リスク」</h4>
+                            <p>逆に右サイドでは、守備時に致命的な弱点を露呈します。縦に突破された際の体の向きが不利になり、タックルが半歩遅れる構造的欠陥を抱えます。この「エラーを誘発しやすい状態」は、トップレベルの指導者にとって許容しがたいリスクとなります。</p>
+                        </div>
+                        <div class="reason-card">
+                            <h4>⛓️ 理由３：育成年代の「供給ボトルネック」</h4>
+                            <p>育成年代では、短期的な勝利のため選手の長所（左足）を伸ばすことが優先され、逆足の練習が疎かになりがちです。結果として、戦術的に信頼できるレベルの両足を持つ選手が育たず、供給網自体がこの希少性を再生産しています。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card" style="margin-top: 2rem;">
+                         <h4 style="font-size: 1.5rem;">希少性のフィードバックループ</h4>
+                         <div class="feedback-loop">
+                            <div class="feedback-item">① 生物的希少性<br><small>(人口の約10%)</small></div>
+                            <div class="feedback-arrow">→</div>
+                            <div class="feedback-item">② 左サイドでの高い需要</div>
+                            <div class="feedback-arrow">→</div>
+                            <div class="feedback-item">③ 左サイドへの特化</div>
+                            <div class="feedback-arrow">→</div>
+                            <div class="feedback-item">④ 右で使える選手の供給不足</div>
+                         </div>
+                    </div>
+
+                    <h3>稀有なる実例：ケーススタディ</h3>
+                    <p style="text-align: center;">原則を証明する「例外」たち。彼らのキャリアは何を物語るのか。</p>
+                    <div class="col-2-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                        <div class="case-study-card">
+                            <h4>パオロ・マルディーニ</h4>
+                            <p class="case-subtitle">ルールを証明する「伝説」</p>
+                            <p>実は右利き。史上最高の左SBとなったが、左利きの専門家が加入すると右SBへ。これは「利き足とサイドの一致」を監督が本能的に求める強い証拠。</p>
+                        </div>
+                        <div class="case-study-card">
+                            <h4>冨安 健洋</h4>
+                            <p class="case-subtitle">利き足の議論を超える「理想像」</p>
+                            <p>監督に「どちらが利き足か分からない」と言わしめる驚異的な両足の技術。彼こそが、この問題の究極的な解決策である「両利きDF」の価値を証明する存在。</p>
+                        </div>
+                        <div class="case-study-card">
+                            <h4>明本 考浩 / 車屋 紳太郎</h4>
+                            <p class="case-subtitle">現実主義的な「解決策」</p>
+                            <p>Jリーグで見られた実例。彼らの起用は、チーム事情を埋める現実的な解決策。攻撃の多様性よりも、守備的なタスクを堅実にこなす役割を担うことが多い。</p>
+                        </div>
+                    </div>
+
+                </section>
+                
+                <div class="conclusion-box">
+                    <h3 style="font-size: 1.8rem; text-align: center;">結論：構造的必然と未来への展望</h3>
+                    <p>
+                        左利きの右サイドDFが希少なのは、個人の才能ではなく、<span class="highlight">①左サイドの圧倒的な戦術的価値</span>、<span class="highlight">②右サイドの許容しがたい守備リスク</span>、<span class="highlight">③両利きを育てにくい育成システム</span>、という３つの力が働く「構造的必然」です。
+                    </p>
+                    <p>
+                        この状況は、冨安健洋選手のような「両利き」の選手が評価されることで変わり始めるかもしれません。しかしそれまでは、彼らの不在は、サッカーがいかに「利き足」という根源的な非対称性に支配されているかを静かに物語り続けるでしょう。
+                    </p>
+                </div>
+            </article>
+            
+            <div class="back-link-container">
+                <a href="index.html" class="project-link">⚽ 豆知識一覧に戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.<br><span id="version-display"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const positionData = {
+                lsb: {
+                    label: '左サイドバック (LSB)でのプレー分析',
+                    scores: [9, 8, 8], // Attack, Build-up, Defense
+                    pros: [
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>利き足でトップスピードのまま質の高いクロスを供給可能</li>',
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>オープンな体勢で前方へのパスコースを確保しやすい</li>',
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>ボールを保護しやすくプレス耐性が高い</li>',
+                    ],
+                    cons: [
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>内側へのカットインからの攻撃は逆足になるため限定的</li>',
+                    ]
+                },
+                lcb: {
+                    label: '左センターバック (LCB)でのプレー分析',
+                    scores: [6, 9, 8],
+                    pros: [
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>左サイドへの展開がスムーズで、ビルドアップの起点となる</li>',
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>広い視野を確保しやすく、相手のプレスを回避しやすい</li>',
+                    ],
+                    cons: [
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>右サイドへの大きな展開はやや窮屈になる可能性がある</li>',
+                    ]
+                },
+                rsb: {
+                    label: '右サイドバック (RSB)でのプレー分析',
+                    scores: [7, 4, 3],
+                    pros: [
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>内側へカットインし、利き足でのシュートやパスが可能</li>',
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>中盤の数的優位を作り、ポゼッションを安定させられる</li>',
+                    ],
+                    cons: [
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>縦突破への1対1守備で、体の向きが不利になりタックルが遅れる（致命的）</li>',
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>逆足でのクロスが必須となり、質・速度ともに著しく低下する</li>',
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>内側からのプレスに対しボールを晒しやすく、奪われるリスクが高い</li>',
+                    ]
+                },
+                rcb: {
+                    label: '右センターバック (RCB)でのプレー分析',
+                    scores: [4, 4, 5],
+                    pros: [
+                        '<li><span style="color: green; margin-right: 4px;">✓</span>相手FWが内側に切り込んでくる場合、利き足で対応しやすい</li>',
+                    ],
+                    cons: [
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>右サイドへのパス展開時に窮屈な体勢になり、プレスに弱い</li>',
+                        '<li><span style="color: red; margin-right: 4px;">✗</span>内側からのプレスに対し、利き足がプレス側にありボールを奪われるリスクが高い</li>',
+                    ]
+                }
+            };
+
+            const ctx = document.getElementById('positionChart').getContext('2d');
+            let positionChart;
+
+            function createOrUpdateChart(data) {
+                if (positionChart) {
+                    positionChart.data.datasets[0].data = data.scores;
+                    positionChart.update();
+                } else {
+                    positionChart = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['攻撃性能', 'ビルドアップ', '守備性能'],
+                            datasets: [{
+                                label: '戦術的適合性',
+                                data: data.scores,
+                                backgroundColor: 'rgba(139, 0, 0, 0.2)',
+                                borderColor: 'rgba(139, 0, 0, 1)',
+                                pointBackgroundColor: 'rgba(139, 0, 0, 1)',
+                                pointBorderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            scales: {
+                                r: {
+                                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                                    suggestedMin: 0,
+                                    suggestedMax: 10,
+                                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                                    pointLabels: { font: { size: 14, weight: 'bold' } },
+                                    ticks: { display: false, stepSize: 2 }
+                                }
+                            },
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+                }
+            }
+
+            function updateAnalysis(data) {
+                document.getElementById('analysis-title').textContent = data.label;
+                document.getElementById('pros-list').innerHTML = data.pros.join('');
+                document.getElementById('cons-list').innerHTML = data.cons.join('');
+            }
+
+            const buttons = document.querySelectorAll('.pos-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    const position = this.id.split('-')[1];
+                    createOrUpdateChart(positionData[position]);
+                    updateAnalysis(positionData[position]);
+                });
+            });
+
+            document.getElementById('btn-lsb').click();
+            
+            fetch('version.json')
+                .then(response => response.json())
+                .then(data => {
+                    const versionElement = document.getElementById('version-display');
+                    if (versionElement) {
+                        versionElement.textContent = `v${data.version}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching version:', error));
+        });
+    </script>
+</body>
+</html>

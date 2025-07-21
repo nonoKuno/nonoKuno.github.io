@@ -1,0 +1,130 @@
+/* このファイルで定義された style の上書きを禁止します。*/
+.trivium-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+}
+.trivium-header h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+.trivium-header .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+}
+.trivium-content {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+}
+.trivium-content h3 {
+    font-size: 1.8rem;
+    color: #8b0000;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #8b0000;
+    text-align: center;
+}
+.trivium-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+.trivium-content blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-left: 5px solid #8b0000;
+    font-style: italic;
+    color: #495057;
+}
+.back-link-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* 広告セクションのタイトル */
+.ad-section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #495057;
+}
+.ad-section-in-article {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.ad-section-in-article .ads-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .trivium-header h2 {
+        font-size: 1.8rem;
+    }
+    .trivium-content {
+        padding: 1.5rem;
+    }
+    .trivium-content h3 {
+        font-size: 1.5rem;
+    }
+    .trivium-content p {
+        font-size: 1rem;
+    }
+}
+
+/* 2カラムレイアウト用のスタイル */
+.col-2-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+    .col-2-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* 結論・まとめ用のボックス */
+.conclusion-box {
+    background-color: #f0fff4;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 5px solid #28a745;
+    margin: 2rem 0;
+}
+.conclusion-box h3 {
+    color: #155724;
+    border-bottom: none;
+}
+.conclusion-box p {
+    font-size: 1.1rem;
+}
+.conclusion-box .highlight {
+     font-weight: bold;
+     color: #155724;
+}
+
+/* カード用の共通スタイル */
+.card-style {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

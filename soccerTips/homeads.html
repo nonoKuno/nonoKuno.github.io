@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="nonoKuno のサッカー教室">
+    <title>ホームゲームって何が有利？ - nonoKuno のサッカー教室</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="tipsStyle.css">
+    <link rel="icon" href="../favicon.ico">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "nonoKuno のサッカー教室",
+      "url": "https://nonokuno.github.io/soccerTips/homeads.html"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .chart-container {
+            position: relative;
+            margin: 1.5rem auto;
+            height: 350px;
+            width: 100%;
+            max-width: 450px;
+        }
+        .tab-btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+        .tab-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .tab-btn.active {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+        .content-section {
+            display: none;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .factor-card {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            height: 100%;
+        }
+        .factor-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        #content-crowd .col-2-grid > div {
+            min-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>💡 日本サッカー豆知識</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <article>
+                <header class="trivium-header">
+                    <h2>ホームゲームって何が有利？</h2>
+                    <p class="subtitle">なぜホームチームは有利と言われるのか？サッカーにおける「ホームアドバンテージ」の正体とは</p>
+                </header>
+
+                <section class="trivium-content">
+                    <h3>ホームアドバンテージとは？</h3>
+                    <p>
+                        サッカーの世界では、ホームで戦うチームが統計的に有意に高い勝率を収める現象が知られています。これは「ホームアドバンテージ」と呼ばれます。単なる偶然ではなく、観客の声援、移動による負担、環境への慣れなど、複数の要因が複雑に絡み合って生まれるものです。まずは、世界の主要リーグにおける平均的な勝率データを見てみましょう。
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="winRateChart"></canvas>
+                    </div>
+                    
+                    <h3>アドバンテージを生む3つの主要因</h3>
+                    <p class="text-center">
+                        ホームアドバンテージは、主に3つの要因によってもたらされると考えられています。「観客の声援」「移動の負担」「地の利」。以下のタブをクリックして、それぞれの要因がどのように試合に影響を与えるのかを詳しく見ていきましょう。
+                    </p>
+
+                    <div class="tab-btn-container">
+                        <button class="tab-btn active" data-tab="crowd">観客の声援</button>
+                        <button class="tab-btn" data-tab="travel">移動の負担</button>
+                        <button class="tab-btn" data-tab="familiarity">地の利</button>
+                    </div>
+                    
+                    <div id="factor-content">
+                        <div id="content-crowd" class="content-section active">
+                            <h4 style="font-size: 1.5rem; text-align:center; border:none; margin-bottom: 1rem;">声援が創り出す、見えざる圧力</h4>
+                            <p class="text-center">
+                                スタジアムを埋め尽くすファンの大声援は、アウェイチームにプレッシャーを与え、ホームチームを鼓舞するだけではありません。研究によると、審判の判定にも無意識的な影響を与えることが示唆されています。
+                            </p>
+                            <div class="col-2-grid">
+                                <div>
+                                    <h5 style="font-weight: bold; text-align: center;">警告数の比較</h5>
+                                    <div class="chart-container" style="height: 300px;">
+                                        <canvas id="refereeChart-cards"></canvas>
+                                    </div>
+                                    <p class="text-center" style="font-size: 0.9rem;">ホームチームの方がアウェイチームよりも警告を受ける枚数が少ない傾向にあります。</p>
+                                </div>
+                                <div>
+                                    <h5 style="font-weight: bold; text-align: center;">アディショナルタイムの比較</h5>
+                                    <div class="chart-container" style="height: 300px;">
+                                        <canvas id="refereeChart-time"></canvas>
+                                    </div>
+                                    <p class="text-center" style="font-size: 0.9rem;">ホームチームが負けている状況では、アディショナルタイムが長くなる傾向が見られます。</p>
+                                </div>
+                            </div>
+                            <blockquote style="margin-top: 2rem;">
+                                <h5>決定的証拠：無観客試合が示した真実</h5>
+                                <p>COVID-19パンデミック下で行われた無観客試合は、観客の影響を測る「自然実験」の場となりました。移動や習熟度などの条件はそのままに、観客という要因だけを取り除いた結果、審判へのバイアスが劇的に減少。観客の圧力がホームアドバンテージの最大の要因であることが、より明確になりました。</p>
+                                <div class="chart-container">
+                                   <canvas id="noCrowdChart"></canvas>
+                               </div>
+                               <p class="text-center" style="font-size: 0.9rem;">観客がいない状況では、アウェイチームに不利な警告数の偏りがほぼ消失しました。</p>
+                            </blockquote>
+                        </div>
+
+                        <div id="content-travel" class="content-section">
+                            <h4 style="font-size: 1.5rem; text-align:center; border:none; margin-bottom: 1rem;">移動距離が奪う、パフォーマンス</h4>
+                            <p class="text-center">
+                               長距離の移動は、選手のコンディションに直接的な影響を与えます。睡眠サイクルの乱れや移動による疲労は、試合でのパフォーマンス低下につながり、アウェイチームにとって大きなハンディキャップとなります。
+                            </p>
+                           <div class="chart-container">
+                               <canvas id="travelChart"></canvas>
+                           </div>
+                           <p class="text-center" style="font-size: 0.9rem;">一般的に、移動距離が長くなるほどアウェイチームの勝率が低下する傾向が見られます。</p>
+                        </div>
+                        
+                        <div id="content-familiarity" class="content-section">
+                            <h4 style="font-size: 1.5rem; text-align:center; border:none; margin-bottom: 1rem;">慣れ親しんだ環境がもたらす、絶対的な安心感</h4>
+                            <p class="text-center">
+                                データには現れにくいものの、慣れ親しんだ環境でプレーできることは、心理的・物理的に大きなアドバンテージとなります。これは「地の利」と呼ばれ、選手のパフォーマンスを最大限に引き出します。
+                            </p>
+                            <div class="col-2-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                                <div class="factor-card">
+                                    <div class="icon">🏟️</div>
+                                    <h5 style="font-weight: bold;">ピッチへの習熟</h5>
+                                    <p style="font-size: 0.9rem;">ピッチのサイズ、芝の状態、硬さなどを熟知。プレーの精度を高めることができます。</p>
+                                </div>
+                                <div class="factor-card">
+                                    <div class="icon">🔄</div>
+                                    <h5 style="font-weight: bold;">確立されたルーティン</h5>
+                                    <p style="font-size: 0.9rem;">使い慣れたロッカールームやウォーミングアップの流れが、心理的な安定をもたらします。</p>
+                                </div>
+                                 <div class="factor-card">
+                                    <div class="icon">🧠</div>
+                                    <h5 style="font-weight: bold;">心理的な領域意識</h5>
+                                    <p style="font-size: 0.9rem;">「自分たちの領域を守る」という意識が、選手の闘争心や集中力を高める効果があります。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="conclusion-box">
+                    <h3 style="font-size: 1.8rem; text-align: center;">結論：アドバンテージは複合的要因の産物</h3>
+                    <p>
+                        サッカーにおけるホームアドバンテージは、複数の要素が相互に作用し合うことで生まれる複雑な現象です。
+                    </p>
+                    <ul style="list-style-type: '✓ '; padding-left: 1.5rem; margin-top: 1rem; margin-bottom: 1rem;">
+                        <li><span class="highlight">観客の声援：</span>ファンの応援は、選手を鼓舞するだけでなく、審判の判定に無意識的な影響を与え、ホームチームに有利な状況を作り出します。</li>
+                        <li><span class="highlight">移動の負担：</span>アウェイチームは長距離移動による疲労や睡眠サイクルの乱れなど、コンディション面でのハンディキャップを負います。</li>
+                        <li><span class="highlight">地の利（環境への慣れ）：</span>使い慣れたピッチやロッカールームといった環境は、ホームチームに心理的な安定と物理的な優位性をもたらします。</li>
+                    </ul>
+                    <p>
+                        これらの要因は互いに連鎖し、見えざる力を生み出します。この構造を理解することは、試合結果を予測し、サッカーをより深く楽しむための一助となるでしょう。
+                    </p>
+                </div>
+            </article>
+
+            <div class="back-link-container">
+                <a href="index.html" class="project-link">⚽ 豆知識一覧に戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.<br><span id="version-display"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.jsの共通設定
+            const chartConfig = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { family: "'Noto Sans JP', sans-serif", size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        titleFont: { family: "'Noto Sans JP', sans-serif" },
+                        bodyFont: { family: "'Noto Sans JP', sans-serif" },
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            };
+
+            // 勝率グラフ
+            const winRateData = {
+                labels: ['ホーム勝利', 'アウェイ勝利', '引き分け'],
+                datasets: [{
+                    label: '勝率',
+                    data: [46, 27, 27],
+                    backgroundColor: ['#007BFF', '#DC3545', '#6C757D'],
+                    borderColor: '#F8F9FA',
+                    borderWidth: 2,
+                    hoverOffset: 4
+                }]
+            };
+            const winRateCtx = document.getElementById('winRateChart').getContext('2d');
+            new Chart(winRateCtx, { type: 'doughnut', data: winRateData, options: chartConfig });
+
+            // グラフのインスタンスを保持する変数
+            let refereeCardsChart, refereeTimeChart, travelChart, noCrowdChart;
+
+            // 審判関連のグラフを作成する関数
+            function createRefereeCharts() {
+                if (refereeCardsChart) return; 
+
+                const refereeCardsData = {
+                    labels: ['ホームチーム', 'アウェイチーム'],
+                    datasets: [{
+                        label: '平均警告枚数/試合',
+                        data: [1.5, 2.2],
+                        backgroundColor: ['#007BFF', '#DC3545'],
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                };
+                const refereeTimeData = {
+                    labels: ['ホーム負け状況', 'アウェイ負け状況'],
+                    datasets: [{
+                        label: '平均アディショナルタイム(分)',
+                        data: [5.5, 4.0],
+                        backgroundColor: ['#007BFF', '#DC3545'],
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                };
+                
+                const sharedBarOptions = { ...chartConfig, scales: { y: { beginAtZero: true } }, indexAxis: 'y' };
+
+                const refereeCardsCtx = document.getElementById('refereeChart-cards').getContext('2d');
+                refereeCardsChart = new Chart(refereeCardsCtx, { type: 'bar', data: refereeCardsData, options: sharedBarOptions });
+
+                const refereeTimeCtx = document.getElementById('refereeChart-time').getContext('2d');
+                refereeTimeChart = new Chart(refereeTimeCtx, { type: 'bar', data: refereeTimeData, options: sharedBarOptions });
+                
+                createNoCrowdChart();
+            }
+
+            // 無観客試合のグラフを作成する関数
+            function createNoCrowdChart() {
+                if (noCrowdChart) return;
+
+                const noCrowdData = {
+                    labels: ['観客あり', '観客なし'],
+                    datasets: [{
+                        label: 'アウェイチームへの追加警告数/試合',
+                        data: [0.7, 0.05],
+                        backgroundColor: ['#FD7E14', '#6C757D'],
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                };
+                const noCrowdCtx = document.getElementById('noCrowdChart').getContext('2d');
+                noCrowdChart = new Chart(noCrowdCtx, {
+                    type: 'bar',
+                    data: noCrowdData,
+                    options: { ...chartConfig, scales: { y: { beginAtZero: true, title: { display: true, text: 'ホームに対するアウェイの追加警告数' } } } }
+                });
+            }
+            
+            // 移動距離のグラフを作成する関数
+            function createTravelChart() {
+                if (travelChart) return; 
+                
+                const travelData = {
+                    labels: ['500km未満', '500-1500km', '1500km超', '時差2h超'],
+                    datasets: [{
+                        label: 'アウェイ勝率 (%)',
+                        data: [28, 25, 22, 18],
+                        backgroundColor: '#28A745',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                };
+                const travelChartCtx = document.getElementById('travelChart').getContext('2d');
+                travelChart = new Chart(travelChartCtx, { type: 'bar', data: travelData, options: { ...chartConfig, scales: { y: { beginAtZero: true } } } });
+            }
+
+            // タブ切り替えのロジック
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`content-${target}`).classList.add('active');
+
+                    if (target === 'crowd') createRefereeCharts();
+                    else if (target === 'travel') createTravelChart();
+                });
+            });
+            
+            // 初期表示のために一度呼び出す
+            createRefereeCharts();
+
+            // バージョン情報の取得
+            fetch('version.json')
+                .then(response => response.json())
+                .then(data => {
+                    const versionElement = document.getElementById('version-display');
+                    if (versionElement) {
+                        versionElement.textContent = `v${data.version}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching version:', error));
+        });
+    </script>
+</body>
+</html>
