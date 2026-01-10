@@ -866,7 +866,7 @@ class SoccerBoard {
     }
 
     loadVersion() {
-        fetch('version.json')
+        fetch('../version.json')
             .then(response => response.json())
             .then(data => {
                 this.dom.versionNumber.textContent = data.version;
