@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jリーグデータセンター | nonoKuno のサッカー教室</title>
+    <meta name="description" content="Jリーグの試合データを詳細に分析。順位推移、勝ち点、得点数などの時系列データを視覚的に確認できます。">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        .chart-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .chart-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8b0000, #a0522d);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            opacity: 0.6;
+        }
+
+        .tab-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 18px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #a0522d, #8b0000);
+            opacity: 0.8;
+        }
+
+        .tab-button.active {
+            opacity: 1;
+            box-shadow: 0 6px 18px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .tab-button {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="metallic-shine">
+        <div class="container">
+            <div class="header-content">
+                <h1>nonoKuno のサッカー教室</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro-section metallic-shine" style="margin-bottom: 20px;">
+                <h2>📊 Jリーグデータセンター</h2>
+                <p>
+                    Jリーグの試合データを詳細に分析し、まとめたデータセンターです。<br>
+                    タブを切り替えて、順位推移、勝ち点、得点数などの時系列データを視覚的に確認できます。
+                </p>
+                <a href="../" class="project-link" style="display: inline-block; margin-top: 15px;">← ホームに戻る</a>
+            </section>
+
+            <section class="projects-section">
+                <div class="project-card metallic-shine">
+                    <h3>J1リーグ 2024シーズン</h3>
+                    
+                    <div class="tab-container">
+                        <button class="tab-button active" data-tab="ranking">順位推移</button>
+                        <button class="tab-button" data-tab="points">勝ち点累計</button>
+                        <button class="tab-button" data-tab="goals">得点数累計</button>
+                        <button class="tab-button" data-tab="conceded">失点数累計</button>
+                    </div>
+
+                    <div id="ranking" class="chart-container active">
+                        <canvas id="rankingChart"></canvas>
+                    </div>
+
+                    <div id="points" class="chart-container">
+                        <canvas id="pointsChart"></canvas>
+                    </div>
+
+                    <div id="goals" class="chart-container">
+                        <canvas id="goalsChart"></canvas>
+                    </div>
+
+                    <div id="conceded" class="chart-container">
+                        <canvas id="concededChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <svg class="soccer-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <p>&copy; 2025 nonoKuno のサッカー教室. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script>
+        // ダミーデータ
+        const matchdays = ['第1節', '第2節', '第3節', '第4節', '第5節', '第6節', '第7節', '第8節', '第9節', '第10節'];
+        
+        const teams = [
+            { name: '横浜F・マリノス', color: '#0066CC' },
+            { name: '川崎フロンターレ', color: '#00BFFF' },
+            { name: '浦和レッズ', color: '#DC143C' },
+            { name: '鹿島アントラーズ', color: '#8B0000' },
+            { name: 'ヴィッセル神戸', color: '#8B008B' }
+        ];
+
+        // 順位推移データ（順位は1位が最上位）
+        const rankingData = {
+            '横浜F・マリノス': [1, 2, 1, 1, 1, 2, 1, 1, 1, 1],
+            '川崎フロンターレ': [3, 1, 2, 2, 2, 1, 2, 2, 2, 2],
+            '浦和レッズ': [2, 3, 3, 3, 4, 3, 3, 3, 3, 3],
+            '鹿島アントラーズ': [4, 4, 4, 4, 3, 4, 4, 4, 4, 4],
+            'ヴィッセル神戸': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+        };
+
+        // 勝ち点累計データ
+        const pointsData = {
+            '横浜F・マリノス': [3, 6, 10, 13, 17, 20, 24, 28, 31, 35],
+            '川崎フロンターレ': [3, 7, 10, 14, 17, 21, 24, 27, 30, 33],
+            '浦和レッズ': [3, 6, 9, 12, 14, 18, 21, 24, 27, 30],
+            '鹿島アントラーズ': [1, 4, 7, 10, 13, 16, 19, 22, 24, 27],
+            'ヴィッセル神戸': [0, 3, 6, 8, 11, 14, 16, 19, 21, 24]
+        };
+
+        // 得点数累計データ
+        const goalsData = {
+            '横浜F・マリノス': [2, 5, 9, 12, 16, 19, 23, 27, 30, 34],
+            '川崎フロンターレ': [3, 6, 9, 13, 16, 20, 23, 26, 29, 32],
+            '浦和レッズ': [2, 4, 7, 10, 12, 15, 18, 21, 24, 27],
+            '鹿島アントラーズ': [1, 3, 6, 9, 12, 15, 18, 21, 23, 26],
+            'ヴィッセル神戸': [1, 3, 5, 7, 10, 13, 15, 18, 20, 23]
+        };
+
+        // 失点数累計データ
+        const concededData = {
+            '横浜F・マリノス': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            '川崎フロンターレ': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            '浦和レッズ': [1, 2, 3, 5, 7, 8, 9, 10, 11, 12],
+            '鹿島アントラーズ': [2, 3, 4, 5, 6, 7, 8, 9, 11, 12],
+            'ヴィッセル神戸': [2, 3, 5, 7, 8, 9, 11, 12, 14, 15]
+        };
+
+        let charts = {};
+
+        // チャート作成関数
+        function createChart(canvasId, data, label, reverse = false) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            const datasets = teams.map(team => ({
+                label: team.name,
+                data: data[team.name],
+                borderColor: team.color,
+                backgroundColor: team.color + '20',
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }));
+
+            charts[canvasId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: matchdays,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: 12 }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: label,
+                            font: { size: 18, weight: 'bold' },
+                            padding: 20
+                        }
+                    },
+                    scales: {
+                        y: {
+                            reverse: reverse,
+                            beginAtZero: !reverse,
+                            ticks: {
+                                stepSize: reverse ? 1 : undefined,
+                                font: { size: 12 }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 12 }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // チャート初期化
+        createChart('rankingChart', rankingData, '順位推移', true);
+        createChart('pointsChart', pointsData, '勝ち点累計');
+        createChart('goalsChart', goalsData, '得点数累計');
+        createChart('concededChart', concededData, '失点数累計');
+
+        // タブ切り替え機能
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.dataset.tab;
+                
+                // すべてのタブボタンとコンテナから active クラスを削除
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.chart-container').forEach(container => container.classList.remove('active'));
+                
+                // クリックされたタブボタンと対応するコンテナに active クラスを追加
+                button.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
